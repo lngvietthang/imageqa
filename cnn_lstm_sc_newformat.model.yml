@@ -1,0 +1,15 @@
+name: 'vis_lstm'
+costFn: 'crossEntIdx'
+ImageModel:
+    - name: 'imgFeat'
+      type: 'embedding'
+      outputDim: 4096
+      initWeights: '/path/to/h5/file'
+      trainable: False
+QuestModel:
+    - name: 'wordEmbed'
+      type: 'embedding'
+      outputDim: 4096
+      initWeights: '/path/to/h5/file'
+      trainable: False
+FusionModel:

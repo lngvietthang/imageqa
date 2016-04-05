@@ -1,0 +1,15 @@
+preprocess: true
+maxLenQuest: 56
+
+numEpoch: 2000
+batchSize: 100
+shuffle: true
+writeRecord: true
+saveModel: true
+plotFigs: true
+calcError: true
+stopCost: 0.01
+progress: true
+patience: 10
+criterion: loss
+needValid: true
