@@ -6,7 +6,7 @@ import argparse
 import numpy as np
 from scipy import sparse
 
-from nltk.tokenize import TreebankWordTokenizer
+from nltk.tokenize import wordpunct_tokenize
 from nltk.stem import WordNetLemmatizer
 
 from keras.preprocessing.text import Tokenizer
@@ -18,8 +18,7 @@ def preprocess(lines, isLmz = True):
   '''
 
   '''
-  tokenizer = TreebankWordTokenizer()
-  lines = [tokenizer.tokenize(line) for line in lines]
+  lines = [wordpunct_tokenize(line) for line in lines]
   if isLmz:
     lemmatizer = WordNetLemmatizer()
     lines = [[lemmatizer.lemmatize(word) for word in line] for line in lines]
@@ -202,9 +201,9 @@ def main():
     lstATest = preprocess(lstATest, isLmz = False)
 
   # Combine Training and Validation dataset
-  lstI = lstITrain + lstIVal
-  lstQ = lstQTrain + lstQVal
-  lstA = lstATrain + lstAVal
+  #lstI = lstITrain + lstIVal
+  #lstQ = lstQTrain + lstQVal
+  #lstA = lstATrain + lstAVal
 
   # 3/ Convert data to numerical format
   maxLenQ = args.maxLenQuest
@@ -212,10 +211,10 @@ def main():
                                 lstATrain, \
                                 maxLenQ \
                                 )
-  dataQA = convDataTxt2Num(lstQ, \
-                           lstA, \
-                           maxLenQ \
-                           )
+  #dataQA = convDataTxt2Num(lstQ, \
+  #                         lstA, \
+  #                         maxLenQ \
+  #                         )
 
   dataQAVal = convDataTxt2NumWithDict(lstQVal, \
                                       lstAVal, \
@@ -231,12 +230,12 @@ def main():
                                        dictA = dataQATrain['dictA'] \
                                        )
 
-  dataQATest2 = convDataTxt2NumWithDict(lstQTest, \
-                                        lstATest, \
-                                        maxLenQ, \
-                                        dictQ = dataQA['dictQ'], \
-                                        dictA = dataQA['dictA'] \
-                                        )
+  #dataQATest2 = convDataTxt2NumWithDict(lstQTest, \
+  #                                      lstATest, \
+  #                                      maxLenQ, \
+  #                                      dictQ = dataQA['dictQ'], \
+  #                                      dictA = dataQA['dictA'] \
+  #                                      )
 
 
   # 4/ Prepare Image Data
