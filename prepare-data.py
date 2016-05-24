@@ -5,6 +5,7 @@ import argparse
 from collections import OrderedDict
 
 import numpy as np
+import pickle
 from scipy import sparse
 
 from nltk.tokenize import wordpunct_tokenize
@@ -39,7 +40,7 @@ def build_dict(lst_txt):
     sorted_words = [words[ii] for ii in sorted_idx[::-1]]
 
     word_dict = OrderedDict()
-    word_dict['eos'] = 0
+    word_dict['padding'] = 0
     word_dict['UNK'] = 1
     for ii, ww in enumerate(sorted_words):
         word_dict[ww] = ii + 2
@@ -53,7 +54,7 @@ def conv_txtdata2num(lst_quest, lst_ans, maxlen):
     vocab_size = len(qword_dict)
     q = np.zeros((nb_ins, maxlen), dtype=int)
     for i in range(nb_ins):
-        for j in range(maxlen):
+        for j in range(min(maxlen, len(lst_quest[i]))):
             if lst_quest[i][j] in qword_dict:
                 q[i, j] = qword_dict[lst_quest[i][j]]
             else:
@@ -64,8 +65,8 @@ def conv_txtdata2num(lst_quest, lst_ans, maxlen):
     nb_ans = len(aword_dict) - 1
     a = []
     for ans in lst_ans:
-        if ans in aword_dict:
-            a.append(aword_dict[ans] - 1)
+        if ans[0] in aword_dict:
+            a.append(aword_dict[ans[0]] - 1)
         else:
             a.append(aword_dict['UNK'] - 1)
     a = np.array(a).reshape(len(a), 1)
@@ -82,7 +83,7 @@ def conv_txtdata2num_withdict(lst_quest, lst_ans, maxlen, qword_dict, aword_dict
     nb_ins = len(lst_quest)
     q = np.zeros((nb_ins, maxlen), dtype=int)
     for i in range(nb_ins):
-        for j in range(maxlen):
+        for j in range(min(maxlen, len(lst_quest[i]))):
             if lst_quest[i][j] in qword_dict:
                 q[i, j] = qword_dict[lst_quest[i][j]]
             else:
@@ -91,8 +92,8 @@ def conv_txtdata2num_withdict(lst_quest, lst_ans, maxlen, qword_dict, aword_dict
     lst_ans = [['_'.join([word for word in ans]) for ans in lst_ans]]  # multiple words in ans
     a = []
     for ans in lst_ans:
-        if ans in aword_dict:
-            a.append(aword_dict[ans] - 1)
+        if ans[0] in aword_dict:
+            a.append(aword_dict[ans[0]] - 1)
         else:
             a.append(aword_dict['UNK'] - 1)
     a = np.array(a).reshape(len(a), 1)
@@ -130,13 +131,13 @@ def load_data(path2datadir, dataname, datapart):
     lsti = []
     with open(path2q) as fread:
         for line in fread:
-            jsonStr = json.loads(line)
-            lstq.append(jsonStr['questions'])
-            lsti.append(int(jsonStr['image_id']))
+            json_str = json.loads(line)
+            lstq.append(json_str['question'])
+            lsti.append(int(json_str['image_id']))
     with open(path2a) as fread:
         for line in fread:
-            jsonStr = json.loads(line)
-            lstq.append(jsonStr['answer'])
+            json_str = json.loads(line)
+            lsta.append(json_str['answer'])
 
     return lsti, lstq, lsta
 
@@ -162,6 +163,9 @@ def main():
     dataname = args.dataname
     maxlen = args.maxlenquest
 
+    if not os.path.exists(path2outputdir):
+        os.mkdir(path2outputdir)
+
     # 1/ Load datasets
     lst_img_train, lst_quest_train, lst_ans_train = load_data(path2qadir, dataname, datapart='train')
     lst_img_val, lst_quest_val, lst_ans_val = load_data(path2qadir, dataname, datapart='val')
@@ -169,11 +173,11 @@ def main():
 
     # 2/ Preprocess
     if args.preprocess:
-        lst_quest_train = preprocess(lst_quest_train)
+        lst_quest_train = preprocess(lst_quest_train, is_lmz=False)
         lst_ans_train = preprocess(lst_ans_train, is_lmz=False)
-        lst_quest_val = preprocess(lst_quest_val)
+        lst_quest_val = preprocess(lst_quest_val, is_lmz=False)
         lst_ans_val = preprocess(lst_ans_val, is_lmz=False)
-        lst_quest_test = preprocess(lst_quest_test)
+        lst_quest_test = preprocess(lst_quest_test, is_lmz=False)
         lst_ans_test = preprocess(lst_ans_test, is_lmz=False)
     # 3/ Convert questions and answers to numerical format
     q_train, a_train, qword_dict, aword_dict = conv_txtdata2num(lst_quest_train, lst_ans_train, maxlen)
@@ -223,11 +227,16 @@ def main():
     #    5.2/ Validation Data
     input_val = np.concatenate((i_val, q_val), axis=1)
     target_val = a_val
-    np.save(os.path.join(path2outputdir, 'valid.npy'), np.array((input_val, target_val), dtype=object))
+    np.save(os.path.join(path2outputdir, 'dev.npy'), np.array((input_val, target_val), dtype=object))
     #    5.3/ Test Data
     input_test = np.concatenate((i_test, q_test), axis=1)
     target_test = a_test
-    np.save(os.path.join(path2outputdir, 'test.npy'), np.array((input_test, target_test), dtype=object))
+    np.save(os.path.join(path2outputdir, 'val.npy'), np.array((input_test, target_test), dtype=object))
+    #    5.4/ Dictionary
+    with open(os.path.join(path2outputdir, 'qdict.pkl'), 'w') as fwrite:
+        pickle.dump(qword_dict, fwrite)
+    with open(os.path.join(path2outputdir, 'adict.pkl'), 'w') as fwrite:
+        pickle.dump(aword_dict, fwrite)
 
 
 if __name__ == '__main__':
