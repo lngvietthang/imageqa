@@ -223,15 +223,15 @@ def main():
     #    5.1/ Training Data
     input_train = np.concatenate((i_train, q_train), axis=1)
     target_train = a_train
-    np.save(os.path.join(path2outputdir, 'train.npy'), np.array((input_train, target_train), dtype=object))
+    np.save(os.path.join(path2outputdir, 'train.npy'), np.array((input_train, target_train, 0), dtype=object))
     #    5.2/ Validation Data
     input_val = np.concatenate((i_val, q_val), axis=1)
     target_val = a_val
-    np.save(os.path.join(path2outputdir, 'dev.npy'), np.array((input_val, target_val), dtype=object))
+    np.save(os.path.join(path2outputdir, 'dev.npy'), np.array((input_val, target_val, 0), dtype=object))
     #    5.3/ Test Data
     input_test = np.concatenate((i_test, q_test), axis=1)
     target_test = a_test
-    np.save(os.path.join(path2outputdir, 'val.npy'), np.array((input_test, target_test), dtype=object))
+    np.save(os.path.join(path2outputdir, 'val.npy'), np.array((input_test, target_test, 0), dtype=object))
     #    5.4/ Dictionary
     with open(os.path.join(path2outputdir, 'qdict.pkl'), 'w') as fwrite:
         pickle.dump(qword_dict, fwrite)
