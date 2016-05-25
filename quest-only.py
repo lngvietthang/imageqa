@@ -1,4 +1,8 @@
 from __future__ import print_function
+from hyperopt import Trials, STATUS_OK, tpe
+from hyperas import optim
+from hyperas.distributions import uniform, choice
+
 import os
 import argparse
 
@@ -11,10 +15,6 @@ from keras.layers.embeddings import Embedding
 from keras.layers.core import Lambda, Dense, Activation
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 import keras.backend as K
-
-from hyperopt import Trials, STATUS_OK, tpe
-from hyperas import optim
-from hyperas.distributions import uniform, choice
 
 from itertools import izip_longest
 
