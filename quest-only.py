@@ -6,7 +6,7 @@ from hyperas.distributions import uniform, choice
 import argparse
 
 
-def data():
+def data(path2indir):
     import os
     import numpy as np
     import pickle
@@ -122,7 +122,7 @@ def main():
 #    path2outputdir = args.outdir
 
     best_run, best_model = optim.minimize(model=model,
-                                          data=data,
+                                          data=data(path2indir),
                                           algo=tpe.suggest,
                                           max_evals=10,
                                           trials=Trials())

@@ -39,8 +39,8 @@
       <file leaf-file-name="quest-only.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quest-only.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1216">
-              <caret line="64" column="71" selection-start-line="64" selection-start-column="71" selection-end-line="64" selection-end-column="71" />
+            <state relative-caret-position="646">
+              <caret line="124" column="62" selection-start-line="124" selection-start-column="62" selection-end-line="124" selection-end-column="62" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -353,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464167427659</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix bugs: quest-only.py">
+      <created>1464167803705</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1464167803705</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -456,8 +463,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quest-only.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1216">
-          <caret line="64" column="71" selection-start-line="64" selection-start-column="71" selection-end-line="64" selection-end-column="71" />
+        <state relative-caret-position="646">
+          <caret line="124" column="62" selection-start-line="124" selection-start-column="62" selection-end-line="124" selection-end-column="62" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
