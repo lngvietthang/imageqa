@@ -1,7 +1,9 @@
+from __future__ import print_function
 import os
 import argparse
 
 import numpy as np
+
 import pickle
 
 from keras.models import Sequential
@@ -26,7 +28,7 @@ def grouper(iterable, n, fillvalue=None):
     return izip_longest(*args, fillvalue=fillvalue)
 
 
-def load_data():
+def data():
     data_train = np.load(os.path.join(path2indir, 'train.npy'))
     q_train = data_train[0][:, 1:]
     a_train = data_train[1]
@@ -69,7 +71,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                         optimizer={{choice(['sgd', 'adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'])}},
                         metrics=['accuracy'])
 
-    print 'Train...'
+    print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath='keras_weights.hdf5', verbose=1, save_best_only=True)
     quest_model.fit(q_train, a_train, batch_size={{choice([32, 64, 100])}}, nb_epoch=nb_epoch,
@@ -78,7 +80,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
 
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
 
-    print 'Test accuracy:', acc
+    print('Test accuracy:', acc)
 
     return {'loss': -acc, 'status': STATUS_OK, 'model': quest_model}
     # best_model = None
@@ -133,12 +135,12 @@ def main():
     path2outputdir = args.outdir
 
     best_run, best_model = optim.minimize(model=model,
-                                          data=load_data,
+                                          data=data,
                                           algo=tpe.suggest,
                                           max_evals=10,
                                           trials=Trials())
 
-    print best_run
+    print(best_run)
 
 if __name__ == '__main__':
     main()
