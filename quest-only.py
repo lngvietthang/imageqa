@@ -39,10 +39,12 @@ def load_data():
     q_val = data_val[0][:, 1:]
     a_val = data_val[1]
 
-    with open(os.path.join(path2indir, 'qdict.pkl')) as fread:
-        qdict = pickle.load(fread)
-    with open(os.path.join(path2indir, 'adict.pkl')) as fread:
-        adict = pickle.load(fread)
+    fread = open(os.path.join(path2indir, 'qdict.pkl'))
+    qdict = pickle.load(fread)
+    fread.close()
+    fread = open(os.path.join(path2indir, 'adict.pkl'))
+    adict = pickle.load(fread)
+    fread.close()
 
     return q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict
 
