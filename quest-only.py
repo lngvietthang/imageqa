@@ -15,15 +15,15 @@ def data():
 
     data_train = np.load(os.path.join(path2indir, 'train.npy'))
     q_train = data_train[0][:, 1:]
-    a_train = data_train[1]
+    a_train = data_train[1][:]
 
     data_dev = np.load(os.path.join(path2indir, 'dev.npy'))
     q_dev = data_dev[0][:, 1:]
-    a_dev = data_dev[1]
+    a_dev = data_dev[1][:]
 
     data_val = np.load(os.path.join(path2indir, 'val.npy'))
     q_val = data_val[0][:, 1:]
-    a_val = data_val[1]
+    a_val = data_val[1][:]
 
     fread = open(os.path.join(path2indir, 'qdict.pkl'))
     qdict = pickle.load(fread)
