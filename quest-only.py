@@ -6,10 +6,12 @@ from hyperas.distributions import uniform, choice
 import argparse
 
 
-def data(path2indir):
+def data():
     import os
     import numpy as np
     import pickle
+
+    path2indir = '/home/guest/Development/myprojects/cocoqa-dataset/prepared/'
 
     data_train = np.load(os.path.join(path2indir, 'train.npy'))
     q_train = data_train[0][:, 1:]
@@ -122,7 +124,7 @@ def main():
 #    path2outputdir = args.outdir
 
     best_run, best_model = optim.minimize(model=model,
-                                          data=data(path2indir),
+                                          data=data,
                                           algo=tpe.suggest,
                                           max_evals=10,
                                           trials=Trials())
