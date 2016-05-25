@@ -50,7 +50,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     quest_model = Sequential()
     quest_model.add(Embedding(input_dim=vocab_size, output_dim={{choice([100, 200, 300, 500])}},
                               init = {{choice(['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'])}},
-                              mask_zero=True, dropout={{uniform(0,1)}}
+                              mask_zero=False, dropout={{uniform(0,1)}}
                               )
                     )
     quest_model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0], ) + shape[2:]))
@@ -73,42 +73,6 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     print('Test accuracy:', acc)
 
     return {'loss': -acc, 'status': STATUS_OK, 'model': quest_model}
-    # best_model = None
-    # best_acc = None
-    # wait = 0
-    # stop = False
-    # for ie in xrange(nb_epoch):
-    #     print 'Epoch %3d:' % ie
-    #     progbar = generic_utils.Progbar(len(q_train))
-    #
-    #     for qb, ab in zip(grouper(q_train, batch_size), grouper(a_train, batch_size)):
-    #         if qb[-1] is None:
-    #             qb = [q for q in qb if q is not None]
-    #         if ab[-1] is None:
-    #             ab = [a for a in ab if a is not None]
-    #
-    #         ab = np_utils.to_categorical(ab, nb_ans)
-    #
-    #         train_loss = quest_model.train_on_batch(qb, ab)
-    #
-    #         progbar.add(len(qb), values=[('train loss', train_loss[0])])
-    #
-    #     print 'Validation...'
-    #     av = np_utils.to_categorical(a_dev, nb_ans)
-    #
-    #     val_loss, val_acc = quest_model.evaluate(q_dev, av, batch_size=batch_size, show_accuracy=True)
-    #     print "--> Validation Accuracy: %.4f" % (val_acc)
-    #     if (best_acc is None) or (val_acc > best_acc):
-    #         best_acc = val_acc
-    #         wait = 0
-    #         best_model = quest_model
-    #     else:
-    #         wait += 1
-    #         if wait > patience:
-    #             print 'Patience level reached, early stop.'
-    #             stop = True
-    #     if stop:
-    #         break
 
 
 def main():
