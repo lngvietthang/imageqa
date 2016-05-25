@@ -3,32 +3,14 @@ from hyperopt import Trials, STATUS_OK, tpe
 from hyperas import optim
 from hyperas.distributions import uniform, choice
 
-import os
 import argparse
-
-import numpy as np
-
-import pickle
-
-from keras.models import Sequential
-from keras.layers.embeddings import Embedding
-from keras.layers.core import Lambda, Dense, Activation
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-import keras.backend as K
-
-from itertools import izip_longest
-
-
-verbose = os.environ.get('VERBOSE', 'no') == 'yes'
-debug = os.environ.get('DEBUG', 'no') == 'yes'
-
-
-def grouper(iterable, n, fillvalue=None):
-    args = [iter(iterable)] * n
-    return izip_longest(*args, fillvalue=fillvalue)
 
 
 def data():
+    import os
+    import numpy as np
+    import pickle
+
     data_train = np.load(os.path.join(path2indir, 'train.npy'))
     q_train = data_train[0][:, 1:]
     a_train = data_train[1]
@@ -52,6 +34,12 @@ def data():
 
 
 def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
+    from keras.models import Sequential
+    from keras.layers.embeddings import Embedding
+    from keras.layers.core import Lambda, Dense, Activation
+    from keras.callbacks import EarlyStopping, ModelCheckpoint
+    import keras.backend as K
+
     vocab_size = len(qdict)
     nb_ans = len(adict)
 
@@ -121,7 +109,6 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     #         break
 
 
-
 def main():
     # TODO: Parsing the list arguments
     parser = argparse.ArgumentParser()
@@ -131,8 +118,8 @@ def main():
 
     global path2indir
     path2indir = args.indir
-    global path2outputdir
-    path2outputdir = args.outdir
+#    global path2outputdir
+#    path2outputdir = args.outdir
 
     best_run, best_model = optim.minimize(model=model,
                                           data=data,
