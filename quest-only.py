@@ -16,6 +16,8 @@ def data():
     data_train = np.load(os.path.join(path2indir, 'train.npy'))
     q_train = data_train[0][:, 1:]
     a_train = data_train[1][:]
+    print(q_train.shape)
+    print(a_train.shape)
 
     data_dev = np.load(os.path.join(path2indir, 'dev.npy'))
     q_dev = data_dev[0][:, 1:]
