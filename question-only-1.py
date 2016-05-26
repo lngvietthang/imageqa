@@ -68,6 +68,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdi
                     validation_data=(q_dev, a_dev),
                     callbacks=[early_stopping, checkpointer])
 
+    quest_model.load_weights(filepath=os.path.join(path2outdir, 'keras_weights.hdf5'))
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
 
     print('Test accuracy:', acc)
