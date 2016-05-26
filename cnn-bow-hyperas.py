@@ -51,6 +51,7 @@ def data():
     img_feat_indptr = img_feat_sparse[h5key + '_indptr']
 
     img_feat = sparse.csr_matrix((img_feat_data, img_feat_indices, img_feat_indptr), shape=img_feat_shape)
+    img_feat = img_feat.todense()
 
     img_mean = img_feat_sparse[h5key + '_mean']
     img_std = img_feat_sparse[h5key + '_std']
