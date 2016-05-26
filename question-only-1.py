@@ -61,6 +61,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdi
                         optimizer='adamax',
                         metrics=['accuracy'])
 
+    print('##################################')
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath=os.path.join(path2outdir, 'keras_weights.hdf5'), verbose=1, save_best_only=True)
@@ -68,6 +69,8 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdi
                     validation_data=(q_dev, a_dev),
                     callbacks=[early_stopping, checkpointer])
 
+    print('##################################')
+    print('Testing')
     quest_model.load_weights(filepath=os.path.join(path2outdir, 'keras_weights.hdf5'))
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
 
