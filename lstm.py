@@ -61,7 +61,8 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                               mask_zero=True, dropout={{uniform(0, 1)}}
                               )
                     )
-    nb_ltsmlayer = {{choice([1, 2, 3, 4])}}
+#    nb_ltsmlayer = {{choice([1, 2, 3, 4])}}
+    nb_ltsmlayer = 1
 
     if nb_ltsmlayer == 1:
         quest_model.add(LSTM(output_dim={{choice([100, 200, 300, 500])}},
@@ -118,7 +119,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                              dropout_W={{uniform(0, 1)}},
                              dropout_U={{uniform(0, 1)}},
                              return_sequences=False))
-    quest_model.add(Lambda(function=lambda x: x, output_shape=lambda shape: (shape[0], ) + shape[2:]))
+#    quest_model.add(Lambda(function=lambda x: x, output_shape=lambda shape: (shape[0], ) + shape[2:]))
     quest_model.add(Dense(nb_ans))
     quest_model.add(Activation('softmax'))
 
