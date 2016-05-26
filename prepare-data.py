@@ -89,7 +89,7 @@ def conv_txtdata2num_withdict(lst_quest, lst_ans, maxlen, qword_dict, aword_dict
             else:
                 q[i, j] = qword_dict['UNK']
 
-    lst_ans = [['_'.join([word for word in ans]) for ans in lst_ans]]  # multiple words in ans
+    lst_ans = [['_'.join([word for word in ans])] for ans in lst_ans]  # multiple words in ans
     a = []
     for ans in lst_ans:
         if ans[0] in aword_dict:
