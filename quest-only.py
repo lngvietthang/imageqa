@@ -10,14 +10,13 @@ def data():
     import os
     import numpy as np
     import pickle
+    from keras.utils import np_utils
 
     path2indir = '/home/guest/Development/myprojects/cocoqa-dataset/prepared/'
 
     data_train = np.load(os.path.join(path2indir, 'train.npy'))
     q_train = data_train[0][:, 1:]
     a_train = data_train[1][:]
-    print(q_train.shape)
-    print(a_train.shape)
 
     data_dev = np.load(os.path.join(path2indir, 'dev.npy'))
     q_dev = data_dev[0][:, 1:]
@@ -33,6 +32,11 @@ def data():
     fread = open(os.path.join(path2indir, 'adict.pkl'))
     adict = pickle.load(fread)
     fread.close()
+
+    nb_ans = len(adict)
+    a_train = np_utils.to_categorical(a_train, nb_ans)
+    a_dev = np_utils.to_categorical(a_dev, nb_ans)
+    a_val = np_utils.to_categorical(a_val, nb_ans)
 
     return q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict
 
