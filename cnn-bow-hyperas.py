@@ -86,7 +86,7 @@ def model(i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, q
     nb_img_feature = img_feat.shape[1]
     img_model = Sequential()
     img_model.add(Embedding(input_dim=nb_img, output_dim=nb_img_feature,
-                            weights=img_feat, dropout={{uniform(0, 1)}},))
+                            weights=[img_feat], dropout={{uniform(0, 1)}},))
     img_model.add(Flatten())
 
     multimodal = Sequential()

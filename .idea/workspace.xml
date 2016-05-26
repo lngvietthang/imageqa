@@ -85,8 +85,8 @@
       <file leaf-file-name="cnn-bow-hyperas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="58" column="46" selection-start-line="58" selection-start-column="46" selection-end-line="58" selection-end-column="46" />
+            <state relative-caret-position="424">
+              <caret line="91" column="29" selection-start-line="91" selection-start-column="29" selection-end-line="91" selection-end-column="29" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -562,7 +562,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464282809355</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Fix bugs: cnn-bow-hyperas.py">
+      <created>1464283121476</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1464283121476</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -610,7 +617,8 @@
     <MESSAGE value="Fix bug: ltsm.py -&gt; Hyperas parameter" />
     <MESSAGE value="New: ltsm-1.py -&gt; No Hyperas parameter" />
     <MESSAGE value="New: cnn-bow-hyperas.py -&gt; Hyperas parameter" />
-    <option name="LAST_COMMIT_MESSAGE" value="New: cnn-bow-hyperas.py -&gt; Hyperas parameter" />
+    <MESSAGE value="Fix bugs: cnn-bow-hyperas.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: cnn-bow-hyperas.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -830,8 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="58" column="46" selection-start-line="58" selection-start-column="46" selection-end-line="58" selection-end-column="46" />
+        <state relative-caret-position="424">
+          <caret line="91" column="29" selection-start-line="91" selection-start-column="29" selection-end-line="91" selection-end-column="29" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
