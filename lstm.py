@@ -44,7 +44,7 @@ def data():
 def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     from keras.models import Sequential
     from keras.layers.embeddings import Embedding
-    from keras.layers.core import Lambda, Dense, Activation
+    from keras.layers.core import Dense, Activation
     from keras.layers.recurrent import LSTM
     from keras.callbacks import EarlyStopping, ModelCheckpoint
 
@@ -57,7 +57,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     quest_model.add(Embedding(input_dim=vocab_size, output_dim={{choice([100, 200, 300, 500])}},
                               init = {{choice(['uniform', 'lecun_uniform', 'normal',
                                                'identity', 'glorot_uniform', 'glorot_normal',
-                                               'he_normal', 'he_uniform', 'zero'])}},
+                                               'he_normal', 'he_uniform'])}},
                               mask_zero=True, dropout={{uniform(0, 1)}}
                               )
                     )
@@ -68,12 +68,10 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
         quest_model.add(LSTM(output_dim={{choice([100, 200, 300, 500])}},
                              init={{choice(['uniform', 'lecun_uniform', 'normal',
                                             'identity', 'glorot_uniform', 'glorot_normal',
-                                            'orthogonal', 'he_normal', 'he_uniform',
-                                            'zero'])}},
+                                            'orthogonal', 'he_normal', 'he_uniform'])}},
                              inner_init={{choice(['uniform', 'lecun_uniform', 'normal',
                                                   'identity', 'glorot_uniform', 'glorot_normal',
-                                                  'orthogonal', 'he_normal', 'he_uniform',
-                                                  'zero'])}},
+                                                  'orthogonal', 'he_normal', 'he_uniform'])}},
                              activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                              inner_activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                              W_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
@@ -87,12 +85,10 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
             quest_model.add(LSTM(output_dim={{choice([100, 200, 300, 500])}},
                                  init={{choice(['uniform', 'lecun_uniform', 'normal',
                                                 'identity', 'glorot_uniform', 'glorot_normal',
-                                                'orthogonal', 'he_normal', 'he_uniform',
-                                                'zero'])}},
+                                                'orthogonal', 'he_normal', 'he_uniform'])}},
                                  inner_init={{choice(['uniform', 'lecun_uniform', 'normal',
                                                       'identity', 'glorot_uniform', 'glorot_normal',
-                                                      'orthogonal', 'he_normal', 'he_uniform',
-                                                      'zero'])}},
+                                                      'orthogonal', 'he_normal', 'he_uniform'])}},
                                  activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                                  inner_activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                                  W_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
@@ -105,12 +101,10 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
         quest_model.add(LSTM(output_dim={{choice([100, 200, 300, 500])}},
                              init={{choice(['uniform', 'lecun_uniform', 'normal',
                                             'identity', 'glorot_uniform', 'glorot_normal',
-                                            'orthogonal', 'he_normal', 'he_uniform',
-                                            'zero'])}},
+                                            'orthogonal', 'he_normal', 'he_uniform'])}},
                              inner_init={{choice(['uniform', 'lecun_uniform', 'normal',
                                                   'identity', 'glorot_uniform', 'glorot_normal',
-                                                  'orthogonal', 'he_normal', 'he_uniform',
-                                                  'zero'])}},
+                                                  'orthogonal', 'he_normal', 'he_uniform'])}},
                              activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                              inner_activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                              W_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
@@ -119,12 +113,12 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                              dropout_W={{uniform(0, 1)}},
                              dropout_U={{uniform(0, 1)}},
                              return_sequences=False))
-#    quest_model.add(Lambda(function=lambda x: x, output_shape=lambda shape: (shape[0], ) + shape[2:]))
+
     quest_model.add(Dense(nb_ans))
     quest_model.add(Activation('softmax'))
 
     quest_model.compile(loss='categorical_crossentropy',
-                        optimizer={{choice(['sgd', 'adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'])}},
+                        optimizer={{choice(['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'])}},
                         metrics=['accuracy'])
 
     print('##################################')
