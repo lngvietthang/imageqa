@@ -67,6 +67,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                         optimizer={{choice(['sgd', 'adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'])}},
                         metrics=['accuracy'])
 
+    print('##################################')
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath='keras_weights.hdf5', verbose=1, save_best_only=True)
@@ -76,7 +77,8 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
 
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
 
-    print('Test accuracy:', acc)
+    print('##################################')
+    print('Test accuracy:%.4f' % acc)
 
     return {'loss': -acc, 'status': STATUS_OK, 'model': quest_model}
 
