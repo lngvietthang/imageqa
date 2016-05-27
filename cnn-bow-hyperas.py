@@ -61,16 +61,13 @@ def data():
     del img_mean, img_std
 
     img_feat_train = np.zeros((len(i_train), img_feat.shape[1]), dtype='float32')
-    for idx, img_id in enumerate(i_train):
-        img_feat_train[idx] = img_feat[img_id][:]
+    for idx, img_id in enumerate(i_train): img_feat_train[idx] = img_feat[img_id][:]
 
     img_feat_dev = np.zeros((len(i_dev), img_feat.shape[1]), dtype='float32')
-    for idx, img_id in enumerate(i_dev):
-        img_feat_dev[idx] = img_feat[img_id][:]
+    for idx, img_id in enumerate(i_dev): img_feat_dev[idx] = img_feat[img_id][:]
 
     img_feat_val = np.zeros((len(i_val), img_feat.shape[1]), dtype='float32')
-    for idx, img_id in enumerate(i_val):
-        img_feat_val[idx] = img_feat[img_id][:]
+    for idx, img_id in enumerate(i_val): img_feat_val[idx] = img_feat[img_id][:]
 
     del img_feat
 
