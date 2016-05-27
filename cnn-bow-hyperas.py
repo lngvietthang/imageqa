@@ -52,21 +52,35 @@ def data():
 
     img_feat = sparse.csr_matrix((img_feat_data, img_feat_indices, img_feat_indptr), shape=img_feat_shape)
     img_feat = img_feat.toarray()
-    print(type(img_feat[0, 0]))
+    del img_feat_sparse
 
     img_mean = img_feat_sparse[h5key + '_mean']
     img_std = img_feat_sparse[h5key + '_std']
 
     img_feat = (img_feat - img_mean) / img_std
-    print(type(img_feat[0, 0]))
+    del img_mean, img_std
 
-    return i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, img_feat
+    img_feat_train = np.zeros((len(i_train), img_feat.shape[1]), dtype='float32')
+    for idx, img_id in enumerate(i_train):
+        img_feat_train[idx] = img_feat[img_id][:]
+
+    img_feat_dev = np.zeros((len(i_dev), img_feat.shape[1]), dtype='float32')
+    for idx, img_id in enumerate(i_dev):
+        img_feat_dev[idx] = img_feat[img_id][:]
+
+    img_feat_val = np.zeros((len(i_val), img_feat.shape[1]), dtype='float32')
+    for idx, img_id in enumerate(i_val):
+        img_feat_val[idx] = img_feat[img_id][:]
+
+    del img_feat
+
+    return img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict
 
 
-def model(i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, img_feat):
+def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     from keras.models import Sequential
     from keras.layers.embeddings import Embedding
-    from keras.layers.core import Lambda, Dense, Activation, Merge, Flatten
+    from keras.layers.core import Lambda, Dense, Activation, Merge, Dropout, Reshape
     from keras.callbacks import EarlyStopping, ModelCheckpoint
     import keras.backend as K
 
@@ -77,18 +91,16 @@ def model(i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, q
 
     quest_model = Sequential()
     quest_model.add(Embedding(input_dim=vocab_size, output_dim={{choice([100, 200, 300, 500])}},
-                              init = {{choice(['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'])}},
+                              init={{choice(['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'])}},
                               mask_zero=False, dropout={{uniform(0,1)}}
                               )
                     )
     quest_model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0], ) + shape[2:]))
 
-    nb_img = img_feat.shape[0]
-    nb_img_feature = img_feat.shape[1]
+    nb_feat = img_feat_train.shape[1]
     img_model = Sequential()
-    img_model.add(Embedding(input_dim=nb_img, output_dim=nb_img_feature,
-                            weights=[img_feat], dropout={{uniform(0, 1)}}, input_length=1))
-    img_model.add(Flatten())
+    img_model.add(Reshape((nb_feat, ), input_shape=(nb_feat,)))
+    img_model.add(Dropout({{uniform(0, 1)}}))
 
     multimodal = Sequential()
     multimodal.add(Merge([img_model, quest_model], mode='concat', concat_axis=1))
@@ -103,11 +115,11 @@ def model(i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, q
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath='cnn_bow_weights.hdf5', verbose=1, save_best_only=True)
-    multimodal.fit([i_train, q_train], a_train, batch_size={{choice([32])}}, nb_epoch=nb_epoch,
-                   validation_data=([i_dev, q_dev], a_dev),
+    multimodal.fit([img_feat_train, q_train], a_train, batch_size={{choice([32])}}, nb_epoch=nb_epoch,
+                   validation_data=([img_feat_dev, q_dev], a_dev),
                    callbacks=[early_stopping, checkpointer])
 
-    score, acc = multimodal.evaluate([i_val, q_val], a_val, verbose=1)
+    score, acc = multimodal.evaluate([img_feat_val, q_val], a_val, verbose=1)
 
     print('##################################')
     print('Test accuracy:%.4f' % acc)

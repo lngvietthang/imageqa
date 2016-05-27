@@ -27,7 +27,7 @@
       <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4066">
+            <state relative-caret-position="282">
               <caret line="214" column="62" selection-start-line="214" selection-start-column="62" selection-end-line="214" selection-end-column="62" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -85,8 +85,8 @@
       <file leaf-file-name="cnn-bow-hyperas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
+            <state relative-caret-position="1907">
+              <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -612,7 +612,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464315485688</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Fix bugs: cnn-bow-hyperas.py">
+      <created>1464316291268</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1464316291268</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -939,7 +946,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/prepare-data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4066">
+        <state relative-caret-position="282">
           <caret line="214" column="62" selection-start-line="214" selection-start-column="62" selection-end-line="214" selection-end-column="62" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -949,8 +956,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
+        <state relative-caret-position="1907">
+          <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
