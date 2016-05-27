@@ -111,10 +111,10 @@ def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_t
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath='cnn_bow_weights.hdf5', verbose=1, save_best_only=True)
-    multimodal.fit([img_feat_train, q_train], a_train, batch_size={{choice([32])}}, nb_epoch=nb_epoch,
+    multimodal.fit([img_feat_train, q_train], a_train, batch_size={{choice([32, 64, 100])}}, nb_epoch=nb_epoch,
                    validation_data=([img_feat_dev, q_dev], a_dev),
                    callbacks=[early_stopping, checkpointer])
-
+    multimodal.load_weights('cnn_bow_weights.hdf5')
     score, acc = multimodal.evaluate([img_feat_val, q_val], a_val, verbose=1)
 
     print('##################################')
@@ -138,7 +138,7 @@ def main():
     best_run, best_model = optim.minimize(model=model,
                                           data=data,
                                           algo=tpe.suggest,
-                                          max_evals=10,
+                                          max_evals=20,
                                           trials=Trials())
 
     print(best_run)
