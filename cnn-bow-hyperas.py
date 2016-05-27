@@ -96,10 +96,10 @@ def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_t
     nb_feat = img_feat_train.shape[1]
     img_model = Sequential()
     img_model.add(Reshape((nb_feat, ), input_shape=(nb_feat,)))
-    img_model.add(Dropout({{uniform(0, 1)}}))
 
     multimodal = Sequential()
     multimodal.add(Merge([img_model, quest_model], mode='concat', concat_axis=1))
+    multimodal.add(Dropout({{uniform(0, 1)}}))
     multimodal.add(Dense(nb_ans))
     multimodal.add(Activation('softmax'))
 
