@@ -52,13 +52,12 @@ def data():
 
     img_feat = sparse.csr_matrix((img_feat_data, img_feat_indices, img_feat_indptr), shape=img_feat_shape)
     img_feat = img_feat.toarray()
-    del img_feat_sparse
 
     img_mean = img_feat_sparse[h5key + '_mean']
     img_std = img_feat_sparse[h5key + '_std']
 
     img_feat = (img_feat - img_mean) / img_std
-    del img_mean, img_std
+    del img_feat_sparse, img_mean, img_std
 
     img_feat_train = np.zeros((len(i_train), img_feat.shape[1]), dtype='float32')
     for idx, img_id in enumerate(i_train): img_feat_train[idx] = img_feat[img_id][:]
