@@ -52,12 +52,13 @@ def data():
 
     img_feat = sparse.csr_matrix((img_feat_data, img_feat_indices, img_feat_indptr), shape=img_feat_shape)
     img_feat = img_feat.toarray()
+    print(type(img_feat))
 
     img_mean = img_feat_sparse[h5key + '_mean']
     img_std = img_feat_sparse[h5key + '_std']
 
     img_feat = (img_feat - img_mean) / img_std
-
+    print(type(img_feat))
 
     return i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, img_feat
 
