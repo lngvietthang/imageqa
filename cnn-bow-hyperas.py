@@ -103,7 +103,7 @@ def model(i_train, i_dev, i_val, q_train, q_dev, q_val, a_train, a_dev, a_val, q
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath='cnn_bow_weights.hdf5', verbose=1, save_best_only=True)
-    multimodal.fit([i_train, q_train], a_train, batch_size={{choice([32, 64, 100])}}, nb_epoch=nb_epoch,
+    multimodal.fit([i_train, q_train], a_train, batch_size={{choice([32])}}, nb_epoch=nb_epoch,
                    validation_data=([i_dev, q_dev], a_dev),
                    callbacks=[early_stopping, checkpointer])
 
