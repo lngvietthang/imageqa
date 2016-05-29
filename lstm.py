@@ -61,8 +61,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                               mask_zero=True, dropout={{uniform(0, 1)}}
                               )
                     )
-#    nb_ltsmlayer = {{choice([1, 2, 3, 4])}}
-    nb_ltsmlayer = 1
+    nb_ltsmlayer = {{choice([1, 2, 3])}}
 
     if nb_ltsmlayer == 1:
         quest_model.add(LSTM(output_dim={{choice([100, 200, 300, 500])}},
@@ -74,9 +73,9 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                                                   'orthogonal', 'he_normal', 'he_uniform'])}},
                              activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                              inner_activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
-                             W_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
-                             U_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
-                             b_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
+                             W_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
+                             U_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
+                             b_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
                              dropout_W={{uniform(0, 1)}},
                              dropout_U={{uniform(0, 1)}},
                              return_sequences=False))
@@ -91,9 +90,9 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                                                       'orthogonal', 'he_normal', 'he_uniform'])}},
                                  activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                                  inner_activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
-                                 W_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
-                                 U_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
-                                 b_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
+                                 W_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
+                                 U_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
+                                 b_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
                                  dropout_W={{uniform(0, 1)}},
                                  dropout_U={{uniform(0, 1)}},
                                  return_sequences=True))
@@ -107,9 +106,9 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                                                   'orthogonal', 'he_normal', 'he_uniform'])}},
                              activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
                              inner_activation={{choice(['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'])}},
-                             W_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
-                             U_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
-                             b_regularizer={{choice(['l1', 'l2', 'l1l2'])}},
+                             W_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
+                             U_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
+                             b_regularizer={{choice([None, 'l1', 'l2', 'l1l2'])}},
                              dropout_W={{uniform(0, 1)}},
                              dropout_U={{uniform(0, 1)}},
                              return_sequences=False))
@@ -124,11 +123,12 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
     print('##################################')
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
-    checkpointer = ModelCheckpoint(filepath='keras_weights.hdf5', verbose=1, save_best_only=True)
+    checkpointer = ModelCheckpoint(filepath='lstm_keras_weights.hdf5', verbose=1, save_best_only=True)
     quest_model.fit(q_train, a_train, batch_size={{choice([32, 64, 100])}}, nb_epoch=nb_epoch,
                     validation_data=(q_dev, a_dev),
                     callbacks=[early_stopping, checkpointer])
 
+    quest_model.load_weights('lstm_keras_weights.hdf5')
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
 
     print('##################################')
