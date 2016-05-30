@@ -43,7 +43,7 @@ def data(path2indir):
 
 def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdir):
     vocab_size = len(qdict)
-    nb_ans = len(adict)
+    nb_ans = len(adict) - 1
 
     nb_epoch = 1000
 
