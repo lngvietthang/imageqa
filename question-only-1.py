@@ -33,7 +33,7 @@ def data(path2indir):
     adict = pickle.load(fread)
     fread.close()
 
-    nb_ans = len(adict)
+    nb_ans = len(adict) - 1
     a_train = np_utils.to_categorical(a_train, nb_ans)
     a_dev = np_utils.to_categorical(a_dev, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
