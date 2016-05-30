@@ -27,7 +27,7 @@
       <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4280">
+            <state relative-caret-position="998">
               <caret line="214" column="62" selection-start-line="214" selection-start-column="62" selection-end-line="214" selection-end-column="62" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -73,8 +73,8 @@
       <file leaf-file-name="quest-only.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quest-only.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1600">
-              <caret line="80" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="106" selection-end-column="10" />
+            <state relative-caret-position="-16">
+              <caret line="69" column="46" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -107,8 +107,8 @@
       <file leaf-file-name="question-only-1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/question-only-1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+            <state relative-caret-position="64">
+              <caret line="75" column="50" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -678,7 +678,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464512097266</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Update: question-only-1.py">
+      <created>1464624030785</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1464624030785</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -729,7 +736,8 @@
     <MESSAGE value="Fix bugs: cnn-bow-hyperas.py" />
     <MESSAGE value="New: cnn-bow.py" />
     <MESSAGE value="Update: lstm.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: lstm.py" />
+    <MESSAGE value="Update: question-only-1.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: question-only-1.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1109,16 +1117,6 @@
     <entry file="file://$PROJECT_DIR$/prepare.py" />
     <entry file="file://$PROJECT_DIR$/snipet.py" />
     <entry file="file://$PROJECT_DIR$/cnn.py" />
-    <entry file="file://$PROJECT_DIR$/prepare-data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4280">
-          <caret line="214" column="62" selection-start-line="214" selection-start-column="62" selection-end-line="214" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lstm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
@@ -1147,16 +1145,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quest-only.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1600">
-          <caret line="80" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="106" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -1175,10 +1163,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/prepare-data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="998">
+          <caret line="214" column="62" selection-start-line="214" selection-start-column="62" selection-end-line="214" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quest-only.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="69" column="46" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/question-only-1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+        <state relative-caret-position="64">
+          <caret line="75" column="50" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
