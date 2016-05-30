@@ -61,7 +61,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
                               mask_zero=True, dropout={{uniform(0, 1)}}
                               )
                     )
-    nb_ltsmlayer = {{choice([1, 2, 3])}}
+    nb_ltsmlayer = {{choice([1, 2])}}
 
     if nb_ltsmlayer == 1:
         quest_model.add(LSTM(output_dim={{choice([100, 200, 300, 500])}},
