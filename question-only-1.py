@@ -75,6 +75,7 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdi
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
     result = quest_model.predict(q_val, verbose=1)
     print(result.shape)
+    print(result[0])
 
     print('Test accuracy:', acc)
 
