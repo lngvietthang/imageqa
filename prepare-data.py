@@ -191,18 +191,19 @@ def main():
     q_test, a_test = conv_txtdata2num_withdict(lst_quest_val, lst_ans_val, maxlen, qword_dict, aword_dict)
 
     # 4/ Prepare Image Data
-    img_feat_train, img_idx_train = load_imgfeat(path2imgdir, datapart='train')
+    img_feat_dev1, img_idx_dev1 = load_imgfeat(path2imgdir, datapart='dev1')
     #   4.1/ Calculating mean and std of images feature in training dataset
-    img_mean_train = np.mean(img_feat_train, axis=0)
-    img_std_train = np.std(img_feat_train, axis=0)
-    for i in range(img_std_train.shape[0]):
-        if img_std_train[i] == 0.0:
-            img_std_train[i] = 1.0
+    img_mean_dev1 = np.mean(img_feat_dev1, axis=0)
+    img_std_dev1 = np.std(img_feat_dev1, axis=0)
+    for i in range(img_std_dev1.shape[0]):
+        if img_std_dev1[i] == 0.0:
+            img_std_dev1[i] = 1.0
 
-    img_feat_test, img_idx_test = load_imgfeat(path2imgdir, datapart='val')
+    img_feat_dev2, img_idx_dev2 = load_imgfeat(path2imgdir, datapart='dev2')
+    img_feat_val, img_idx_val = load_imgfeat(path2imgdir, datapart='val')
 
-    img_feat = np.concatenate((img_feat_train, img_feat_test), axis=0)
-    img_idx = np.concatenate((img_idx_train, img_idx_test), axis=0)
+    img_feat = np.concatenate((img_feat_dev1, img_feat_dev2, img_feat_val), axis=0)
+    img_idx = np.concatenate((img_idx_dev1, img_idx_dev2, img_idx_val), axis=0)
 
     #   4.2/ Save to h5 file
     h5key = args.h5key
@@ -213,12 +214,12 @@ def main():
         fout[h5key + '_data'] = img_feat_sparse.data
         fout[h5key + '_indices'] = img_feat_sparse.indices
         fout[h5key + '_indptr'] = img_feat_sparse.indptr
-        fout[h5key + '_mean'] = img_mean_train.astype('float32')
-        fout[h5key + '_std'] = img_std_train.astype('float32')
+        fout[h5key + '_mean'] = img_mean_dev1.astype('float32')
+        fout[h5key + '_std'] = img_std_dev1.astype('float32')
     else:
         fout[h5key + '_data'] = img_feat
-        fout[h5key + '_mean'] = img_mean_train.astype('float32')
-        fout[h5key + '_std'] = img_std_train.astype('float32')
+        fout[h5key + '_mean'] = img_mean_dev1.astype('float32')
+        fout[h5key + '_std'] = img_std_dev1.astype('float32')
 
     # 4.3/ Mapping
     i_dev1 = map_imgid2idx(lst_img_dev1, img_idx)

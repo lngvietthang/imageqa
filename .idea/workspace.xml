@@ -27,8 +27,8 @@
       <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="115" column="93" selection-start-line="115" selection-start-column="93" selection-end-line="115" selection-end-column="93" />
+            <state relative-caret-position="418">
+              <caret line="225" column="49" selection-start-line="225" selection-start-column="49" selection-end-line="225" selection-end-column="49" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -721,7 +721,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464657284641</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Fix bugs: prepare-data.py">
+      <created>1464657576488</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1464657576488</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -762,7 +769,6 @@
     <MESSAGE value="Fix bugs: size of lst ans is zero." />
     <MESSAGE value="New: script builds question model." />
     <MESSAGE value="Fix bugs: quest-only.py" />
-    <MESSAGE value="Fix bugs: prepare-data.py" />
     <MESSAGE value="New: question-only-1.py -&gt; No hyperas paramenter" />
     <MESSAGE value="New: ltsm.py -&gt; Hyperas parameter; Fix bugs: quest-only.py" />
     <MESSAGE value="Fix bug: ltsm.py -&gt; Hyperas parameter" />
@@ -774,7 +780,8 @@
     <MESSAGE value="Update: question-only-1.py" />
     <MESSAGE value="Fix bugs: question-only-1.py" />
     <MESSAGE value="Update: question-only-1.py, prepare-data.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: question-only-1.py, prepare-data.py" />
+    <MESSAGE value="Fix bugs: prepare-data.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: prepare-data.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1222,8 +1229,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/prepare-data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="115" column="93" selection-start-line="115" selection-start-column="93" selection-end-line="115" selection-end-column="93" />
+        <state relative-caret-position="418">
+          <caret line="225" column="49" selection-start-line="225" selection-start-column="49" selection-end-line="225" selection-end-column="49" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
