@@ -74,7 +74,7 @@ def model(q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1, 
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
     result = quest_model.predict(q_val, verbose=1)
 
-    np.save(os.path.join(path2outdir, 'bow-results.npy'), result, dtype=object)
+    np.save(os.path.join(path2outdir, 'bow-results.npy'), result)
 
     print('Test accuracy:', acc)
 

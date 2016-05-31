@@ -229,7 +229,7 @@ def main():
     i_test = map_imgid2idx(lst_img_val, img_idx)
 
     # 4.4/ Save img_idx
-    np.save(os.path.join(path2outputdir, 'imgdict.npy'), img_idx, dtype=object)
+    np.save(os.path.join(path2outputdir, 'imgdict.npy'), img_idx)
 
     # 5/ Combine Images, Questions, Answers in numerical format into one numpy file
     #    5.1/ Dev1 Data
