@@ -207,7 +207,7 @@ def main():
 
     #   4.2/ Save to h5 file
     h5key = args.h5key
-    fout = h5py.File(os.path.join(path2outputdir, 'image-features-all.h5'), 'w')
+    fout = h5py.File(os.path.join(path2outputdir, h5key + '.h5'), 'w')
     if args.imgsparse:
         img_feat_sparse = sparse.csr_matrix(img_feat)
         fout[h5key + '_shape'] = img_feat_sparse._shape
