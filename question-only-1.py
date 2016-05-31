@@ -26,12 +26,12 @@ def data(path2indir):
     q_val = data_val[0][:, 1:]
     a_val = data_val[1][:]
 
-    fread = open(os.path.join(path2indir, 'qdict.pkl'))
-    qdict = pickle.load(fread)
-    fread.close()
-    fread = open(os.path.join(path2indir, 'adict.pkl'))
-    adict = pickle.load(fread)
-    fread.close()
+    with open(os.path.join(path2indir, 'qdict.pkl')) as fread:
+        qdict = pickle.load(fread)
+
+    with open(os.path.join(path2indir, 'adict.pkl')) as fread:
+        adict = pickle.load(fread)
+
 
     nb_ans = len(adict) - 1
     a_train = np_utils.to_categorical(a_train, nb_ans)
@@ -74,8 +74,8 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdi
     quest_model.load_weights(filepath=os.path.join(path2outdir, 'keras_weights.hdf5'))
     score, acc = quest_model.evaluate(q_val, a_val, verbose=1)
     result = quest_model.predict(q_val, verbose=1)
-    print(result.shape)
-    print(result[0])
+
+    np.save(os.path.join(path2outdir, 'bow-results.npy'), result, dtype=object)
 
     print('Test accuracy:', acc)
 
