@@ -27,8 +27,6 @@ def main():
     ansdict.pop('padding', None)
     ansdict_sorted = sorted(ansdict.items(), key=operator.itemgetter(1)) # Sorted by value
     columns = []
-    print ansdict_sorted
-
     for k, v in ansdict_sorted:
         columns.append(k)
 
