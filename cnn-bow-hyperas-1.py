@@ -42,9 +42,9 @@ def data():
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
     img_feat_h5 = h5py.File(os.path.join(path2indir, img_h5key + '.h5'))
-    img_feat = img_feat_h5[img_h5key + '_data']
-    img_mean = img_feat_h5[img_h5key + '_mean']
-    img_std = img_feat_h5[img_h5key + '_std']
+    img_feat = img_feat_h5[img_h5key + '_data'][:]
+    img_mean = img_feat_h5[img_h5key + '_mean'][:]
+    img_std = img_feat_h5[img_h5key + '_std'][:]
 
     img_feat = (img_feat - img_mean) / img_std
     del img_feat_h5, img_mean, img_std
