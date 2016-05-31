@@ -3,8 +3,6 @@ from hyperopt import Trials, STATUS_OK, tpe
 from hyperas import optim
 from hyperas.distributions import uniform, choice
 
-import argparse
-
 
 def data():
     import os
@@ -14,37 +12,40 @@ def data():
     import h5py
     from keras.utils import np_utils
 
-    path2indir = '/home/guest/Development/myprojects/cocoqa-dataset/prepared/'
-    h5key = 'vgg-fc7'
+    path2indir = os.environ.get('INDIR', 'no') == 'yes'
+    h5key = os.environ.get('H5KEY', 'no') == 'yes'
 
-    data_train = np.load(os.path.join(path2indir, 'train.npy'))
-    q_train = data_train[0][:, 1:]
-    i_train = data_train[0][:, 0]
-    a_train = data_train[1][:]
+    #path2indir = '/home/guest/Development/myprojects/imageqa-data-conv/'
+    #h5key = 'vgg-fc7'
 
-    data_dev = np.load(os.path.join(path2indir, 'dev.npy'))
-    q_dev = data_dev[0][:, 1:]
-    i_dev = data_dev[0][:, 0]
-    a_dev = data_dev[1][:]
+    data_dev1 = np.load(os.path.join(path2indir, 'dev1.npy'))
+    q_dev1 = data_dev1[0][:, 1:]
+    i_dev1 = data_dev1[0][:, 0]
+    a_dev1 = data_dev1[1][:]
+
+    data_dev2 = np.load(os.path.join(path2indir, 'dev2.npy'))
+    q_dev2 = data_dev2[0][:, 1:]
+    i_dev2 = data_dev2[0][:, 0]
+    a_dev2 = data_dev2[1][:]
 
     data_val = np.load(os.path.join(path2indir, 'val.npy'))
     q_val = data_val[0][:, 1:]
     i_val = data_val[0][:, 0]
     a_val = data_val[1][:]
 
-    fread = open(os.path.join(path2indir, 'qdict.pkl'))
-    qdict = pickle.load(fread)
+    fread = open(os.path.join(path2indir, 'qdict-dev1.pkl'))
+    qdict_dev1 = pickle.load(fread)
     fread.close()
-    fread = open(os.path.join(path2indir, 'adict.pkl'))
-    adict = pickle.load(fread)
+    fread = open(os.path.join(path2indir, 'adict-dev1.pkl'))
+    adict_dev1 = pickle.load(fread)
     fread.close()
 
-    nb_ans = len(adict)
-    a_train = np_utils.to_categorical(a_train, nb_ans)
-    a_dev = np_utils.to_categorical(a_dev, nb_ans)
+    nb_ans = len(adict_dev1) - 1
+    a_dev1 = np_utils.to_categorical(a_dev1, nb_ans)
+    a_dev2 = np_utils.to_categorical(a_dev2, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
-    img_feat_sparse = h5py.File(os.path.join(path2indir, 'image-features-all.h5'))
+    img_feat_sparse = h5py.File(os.path.join(path2indir, h5key + '.h5'))
     img_feat_shape = img_feat_sparse[h5key + '_shape'][:]
     img_feat_data = img_feat_sparse[h5key + '_data']
     img_feat_indices = img_feat_sparse[h5key + '_indices']
@@ -59,29 +60,32 @@ def data():
     img_feat = (img_feat - img_mean) / img_std
     del img_feat_sparse, img_mean, img_std
 
-    img_feat_train = np.zeros((len(i_train), img_feat.shape[1]), dtype='float32')
-    for idx, img_id in enumerate(i_train): img_feat_train[idx] = img_feat[img_id][:]
+    img_feat_dev1 = np.zeros((len(i_dev1), img_feat.shape[1]), dtype='float32')
+    for idx, img_id in enumerate(i_dev1): img_feat_dev1[idx] = img_feat[img_id][:]
 
-    img_feat_dev = np.zeros((len(i_dev), img_feat.shape[1]), dtype='float32')
-    for idx, img_id in enumerate(i_dev): img_feat_dev[idx] = img_feat[img_id][:]
+    img_feat_dev2 = np.zeros((len(i_dev2), img_feat.shape[1]), dtype='float32')
+    for idx, img_id in enumerate(i_dev2): img_feat_dev2[idx] = img_feat[img_id][:]
 
     img_feat_val = np.zeros((len(i_val), img_feat.shape[1]), dtype='float32')
     for idx, img_id in enumerate(i_val): img_feat_val[idx] = img_feat[img_id][:]
 
     del img_feat
 
-    return img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict
+    return img_feat_dev1, img_feat_dev2, img_feat_val, q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1
 
 
-def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict):
+def model(img_feat_dev1, img_feat_dev2, img_feat_val, q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1):
     from keras.models import Sequential
     from keras.layers.embeddings import Embedding
     from keras.layers.core import Lambda, Dense, Activation, Merge, Dropout, Reshape
     from keras.callbacks import EarlyStopping, ModelCheckpoint
     import keras.backend as K
+    import os
 
-    vocab_size = len(qdict)
-    nb_ans = len(adict)
+    path2outdir = os.environ.get('OUTDIR', 'no') == 'yes'
+
+    vocab_size = len(qdict_dev1)
+    nb_ans = len(adict_dev1)
 
     nb_epoch = 1000
 
@@ -93,7 +97,7 @@ def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_t
                     )
     quest_model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0], ) + shape[2:]))
 
-    nb_feat = img_feat_train.shape[1]
+    nb_feat = img_feat_dev1.shape[1]
     img_model = Sequential()
     img_model.add(Reshape((nb_feat, ), input_shape=(nb_feat,)))
 
@@ -110,11 +114,11 @@ def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_t
     print('##################################')
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
-    checkpointer = ModelCheckpoint(filepath='cnn_bow_weights.hdf5', verbose=1, save_best_only=True)
-    multimodal.fit([img_feat_train, q_train], a_train, batch_size={{choice([32, 64, 100])}}, nb_epoch=nb_epoch,
-                   validation_data=([img_feat_dev, q_dev], a_dev),
+    checkpointer = ModelCheckpoint(filepath=os.path.join(path2outdir, 'cnn_bow_weights.hdf5'), verbose=1, save_best_only=True)
+    multimodal.fit([img_feat_dev1, q_dev1], a_dev1, batch_size={{choice([32, 64, 100])}}, nb_epoch=nb_epoch,
+                   validation_data=([img_feat_dev2, q_dev2], a_dev2),
                    callbacks=[early_stopping, checkpointer])
-    multimodal.load_weights('cnn_bow_weights.hdf5')
+    multimodal.load_weights(os.path.join(path2outdir, 'cnn_bow_weights.hdf5'))
     score, acc = multimodal.evaluate([img_feat_val, q_val], a_val, verbose=1)
 
     print('##################################')
@@ -124,17 +128,6 @@ def model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_t
 
 
 def main():
-    # TODO: Parsing the list arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-indir', required=True, type=str)
-    parser.add_argument('-outdir', required=True, type=str)
-    args = parser.parse_args()
-
-    global path2indir
-    path2indir = args.indir
-#    global path2outputdir
-#    path2outputdir = args.outdir
-
     best_run, best_model = optim.minimize(model=model,
                                           data=data,
                                           algo=tpe.suggest,
