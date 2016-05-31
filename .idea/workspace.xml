@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/depnet-bow.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="imageqa.iws" />
@@ -31,18 +31,6 @@
               <caret line="102" column="41" selection-start-line="102" selection-start-column="41" selection-end-line="102" selection-end-column="41" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lstm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1216">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,8 +85,8 @@
       <file leaf-file-name="cnn-depnet-bow-hyperas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="138" column="77" selection-start-line="138" selection-start-column="70" selection-end-line="138" selection-end-column="77" />
+            <state relative-caret-position="292">
+              <caret line="116" column="86" selection-start-line="116" selection-start-column="83" selection-end-line="116" selection-end-column="86" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -106,14 +94,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="depnet-bow.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="depnet-bow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/depnet-bow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="82" column="61" selection-start-line="82" selection-start-column="61" selection-end-line="82" selection-end-column="61" />
+            <state relative-caret-position="216">
+              <caret line="108" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="138" selection-end-column="10" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="depnet_vggmyconceptsv3fc8-bow.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -171,6 +169,7 @@
         <option value="$PROJECT_DIR$/cnn-bow-hyperas.py" />
         <option value="$PROJECT_DIR$/cnn-depnet-bow-hyperas.py" />
         <option value="$PROJECT_DIR$/depnet-bow.py" />
+        <option value="$PROJECT_DIR$/depnet-bow-1.py" />
       </list>
     </option>
   </component>
@@ -440,13 +439,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fix bugs: quest-only.py">
-      <created>1464167427659</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1464167427659</updated>
     </task>
     <task id="LOCAL-00006" summary="Fix bugs: quest-only.py">
       <created>1464167803705</created>
@@ -784,7 +776,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464674566809</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="New: depnet-bow.py">
+      <created>1464687606265</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1464687606266</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -838,21 +837,14 @@
     <MESSAGE value="Fix bugs: prepare-data.py" />
     <MESSAGE value="Update: cnn-bow.py" />
     <MESSAGE value="Fix bugs: cnn-bow-hyperas.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: cnn-bow-hyperas.py" />
+    <MESSAGE value="New: depnet-bow.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="New: depnet-bow.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gru-1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quest-only.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1600">
@@ -1280,23 +1272,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
+    <entry file="file://$PROJECT_DIR$/depnet-bow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="138" column="77" selection-start-line="138" selection-start-column="70" selection-end-line="138" selection-end-column="77" />
+        <state relative-caret-position="216">
+          <caret line="108" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="138" selection-end-column="10" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/depnet-bow.py">
+    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="82" column="61" selection-start-line="82" selection-start-column="61" selection-end-line="82" selection-end-column="61" />
+        <state relative-caret-position="292">
+          <caret line="116" column="86" selection-start-line="116" selection-start-column="83" selection-end-line="116" selection-end-column="86" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
