@@ -12,8 +12,8 @@ def data():
     import h5py
     from keras.utils import np_utils
 
-    path2indir = os.environ.get('INDIR', 'no') == 'yes'
-    h5key = os.environ.get('H5KEY', 'no') == 'yes'
+    path2indir = os.environ.get('INDIR', 'no')
+    h5key = os.environ.get('H5KEY', 'no')
 
     #path2indir = '/home/guest/Development/myprojects/imageqa-data-conv/'
     #h5key = 'vgg-fc7'
@@ -82,7 +82,7 @@ def model(img_feat_dev1, img_feat_dev2, img_feat_val, q_dev1, q_dev2, q_val, a_d
     import keras.backend as K
     import os
 
-    path2outdir = os.environ.get('OUTDIR', 'no') == 'yes'
+    path2outdir = os.environ.get('OUTDIR', 'no')
 
     vocab_size = len(qdict_dev1)
     nb_ans = len(adict_dev1)

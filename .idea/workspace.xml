@@ -27,8 +27,8 @@
       <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="46" />
+            <state relative-caret-position="-456">
+              <caret line="102" column="41" selection-start-line="102" selection-start-column="41" selection-end-line="102" selection-end-column="41" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -85,8 +85,8 @@
       <file leaf-file-name="cnn-bow-hyperas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2299">
-              <caret line="121" column="77" selection-start-line="121" selection-start-column="77" selection-end-line="121" selection-end-column="77" />
+            <state relative-caret-position="114">
+              <caret line="84" column="48" selection-start-line="84" selection-start-column="48" selection-end-line="84" selection-end-column="48" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -149,7 +149,6 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1680" />
     <option name="y" value="-6" />
     <option name="width" value="1680" />
     <option name="height" value="1056" />
@@ -414,13 +413,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00002" summary="New: script builds question model.">
-      <created>1464150568833</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1464150568833</updated>
     </task>
     <task id="LOCAL-00003" summary="Fix bugs: quest-only.py">
       <created>1464165082244</created>
@@ -758,11 +750,18 @@
       <option name="project" value="LOCAL" />
       <updated>1464659957369</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Update: cnn-bow.py">
+      <created>1464667008607</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1464667008608</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1680" y="-6" width="1680" height="1056" extended-state="6" />
+    <frame x="0" y="-6" width="1680" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11526856" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1256,8 +1255,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/prepare-data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="46" />
+        <state relative-caret-position="-456">
+          <caret line="102" column="41" selection-start-line="102" selection-start-column="41" selection-end-line="102" selection-end-column="41" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -1266,8 +1265,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2299">
-          <caret line="121" column="77" selection-start-line="121" selection-start-column="77" selection-end-line="121" selection-end-column="77" />
+        <state relative-caret-position="114">
+          <caret line="84" column="48" selection-start-line="84" selection-start-column="48" selection-end-line="84" selection-end-column="48" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
