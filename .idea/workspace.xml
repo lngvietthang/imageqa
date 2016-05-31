@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cnn-bow-hyperas-1.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="imageqa.iws" />
@@ -36,18 +36,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lstm-1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lstm-1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="874">
-              <caret line="46" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="96" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="gru-1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gru-1.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -73,8 +61,20 @@
       <file leaf-file-name="cnn-bow-hyperas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="58" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
+            <state relative-caret-position="444">
+              <caret line="61" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cnn-bow-hyperas-1.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas-1.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -85,8 +85,8 @@
       <file leaf-file-name="cnn-depnet-bow-hyperas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="116" column="86" selection-start-line="116" selection-start-column="83" selection-end-line="116" selection-end-column="86" />
+            <state relative-caret-position="665">
+              <caret line="68" column="42" selection-start-line="46" selection-start-column="4" selection-end-line="68" selection-end-column="42" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -106,10 +106,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="depnet_vggmyconceptsv3fc8-bow.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="depnet_vggmyconceptsv3fc8-bow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
+            <state relative-caret-position="-1071">
               <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
@@ -167,9 +167,10 @@
         <option value="$PROJECT_DIR$/question-only-1.py" />
         <option value="$PROJECT_DIR$/cnn-bow.py" />
         <option value="$PROJECT_DIR$/cnn-bow-hyperas.py" />
-        <option value="$PROJECT_DIR$/cnn-depnet-bow-hyperas.py" />
         <option value="$PROJECT_DIR$/depnet-bow.py" />
         <option value="$PROJECT_DIR$/depnet-bow-1.py" />
+        <option value="$PROJECT_DIR$/cnn-depnet-bow-hyperas.py" />
+        <option value="$PROJECT_DIR$/cnn-bow-hyperas-1.py" />
       </list>
     </option>
   </component>
@@ -439,13 +440,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Fix bugs: quest-only.py">
-      <created>1464167803705</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1464167803705</updated>
     </task>
     <task id="LOCAL-00007" summary="Fix bugs: quest-only.py">
       <created>1464167886450</created>
@@ -783,7 +777,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464687606266</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="New: depnet_vggmyconceptsv3fc8-bow.py">
+      <created>1464693388407</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1464693388407</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -838,23 +839,14 @@
     <MESSAGE value="Update: cnn-bow.py" />
     <MESSAGE value="Fix bugs: cnn-bow-hyperas.py" />
     <MESSAGE value="New: depnet-bow.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="New: depnet-bow.py" />
+    <MESSAGE value="New: depnet_vggmyconceptsv3fc8-bow.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="New: depnet_vggmyconceptsv3fc8-bow.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/quest-only.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1600">
-          <caret line="80" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="106" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -910,7 +902,7 @@
         <state relative-caret-position="1140">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -988,7 +980,7 @@
         <state relative-caret-position="1235">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1056,7 +1048,7 @@
         <state relative-caret-position="1520">
           <caret line="81" column="52" selection-start-line="67" selection-start-column="24" selection-end-line="81" selection-end-column="52" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1199,7 +1191,7 @@
         <state relative-caret-position="1216">
           <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1252,16 +1244,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="58" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
@@ -1282,21 +1264,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
+    <entry file="file://$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="116" column="86" selection-start-line="116" selection-start-column="83" selection-end-line="116" selection-end-column="86" />
+        <state relative-caret-position="-1071">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="61" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py">
+    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="665">
+          <caret line="68" column="42" selection-start-line="46" selection-start-column="4" selection-end-line="68" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas-1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
