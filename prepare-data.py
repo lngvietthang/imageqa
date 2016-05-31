@@ -167,22 +167,28 @@ def main():
         os.mkdir(path2outputdir)
 
     # 1/ Load datasets
-    lst_img_train, lst_quest_train, lst_ans_train = load_data(path2qadir, dataname, datapart='train')
+    lst_img_dev1, lst_quest_dev1, lst_ans_dev1 = load_data(path2qadir, dataname, datapart='dev1')
+    lst_img_dev2, lst_quest_dev2, lst_ans_dev2 = load_data(path2qadir, dataname, datapart='dev2')
     lst_img_val, lst_quest_val, lst_ans_val = load_data(path2qadir, dataname, datapart='val')
-    lst_img_test, lst_quest_test, lst_ans_test = load_data(path2qadir, dataname, datapart='test')
+    lst_img_train, lst_quest_train, lst_ans_train = load_data(path2qadir, dataname, datapart='train')
 
     # 2/ Preprocess
     if args.preprocess:
-        lst_quest_train = preprocess(lst_quest_train, is_lmz=False)
-        lst_ans_train = preprocess(lst_ans_train, is_lmz=False)
+        lst_quest_dev1 = preprocess(lst_quest_dev1, is_lmz=False)
+        lst_ans_dev1 = preprocess(lst_ans_dev1, is_lmz=False)
+        lst_quest_dev2 = preprocess(lst_quest_dev2, is_lmz=False)
+        lst_ans_dev2 = preprocess(lst_ans_dev2, is_lmz=False)
         lst_quest_val = preprocess(lst_quest_val, is_lmz=False)
         lst_ans_val = preprocess(lst_ans_val, is_lmz=False)
-        lst_quest_test = preprocess(lst_quest_test, is_lmz=False)
-        lst_ans_test = preprocess(lst_ans_test, is_lmz=False)
+        lst_quest_train = preprocess(lst_quest_train, is_lmz=False)
+        lst_ans_train = preprocess(lst_ans_train, is_lmz=False)
+
     # 3/ Convert questions and answers to numerical format
+    q_dev1, a_dev1, qword_dict_dev1, aword_dict_dev1 = conv_txtdata2num(lst_quest_dev1, lst_ans_dev1, maxlen)
+    q_dev2, a_dev2 = conv_txtdata2num_withdict(lst_quest_dev2, lst_ans_dev2, maxlen, qword_dict_dev1, aword_dict_dev1)
+    q_val, a_val = conv_txtdata2num_withdict(lst_quest_val, lst_ans_val, maxlen, qword_dict_dev1, aword_dict_dev1)
     q_train, a_train, qword_dict, aword_dict = conv_txtdata2num(lst_quest_train, lst_ans_train, maxlen)
-    q_val, a_val = conv_txtdata2num_withdict(lst_quest_val, lst_ans_val, maxlen, qword_dict, aword_dict)
-    q_test, a_test = conv_txtdata2num_withdict(lst_quest_test, lst_ans_test, maxlen, qword_dict, aword_dict)
+    q_test, a_test = conv_txtdata2num_withdict(lst_quest_val, lst_ans_val, maxlen, qword_dict, aword_dict)
 
     # 4/ Prepare Image Data
     img_feat_train, img_idx_train = load_imgfeat(path2imgdir, datapart='train')
@@ -215,29 +221,42 @@ def main():
         fout[h5key + '_std'] = img_std_train.astype('float32')
 
     # 4.3/ Mapping
-    i_train = map_imgid2idx(lst_img_train, img_idx)
+    i_dev1 = map_imgid2idx(lst_img_dev1, img_idx)
+    i_dev2 = map_imgid2idx(lst_img_dev2, img_idx)
     i_val = map_imgid2idx(lst_img_val, img_idx)
-    i_test = map_imgid2idx(lst_img_test, img_idx)
+    i_train = map_imgid2idx(lst_img_train, img_idx)
+    i_test = map_imgid2idx(lst_img_val, img_idx)
 
     # 5/ Combine Images, Questions, Answers in numerical format into one numpy file
-    #    5.1/ Training Data
+    #    5.1/ Dev1 Data
+    input_dev1 = np.concatenate((i_dev1, q_dev1), axis=1)
+    target_dev1 = a_dev1
+    np.save(os.path.join(path2outputdir, 'dev1.npy'), np.array((input_dev1, target_dev1, 0), dtype=object))
+    #    5.2/ Dev2 Data
+    input_dev2 = np.concatenate((i_dev2, q_dev2), axis=1)
+    target_dev2 = a_dev2
+    np.save(os.path.join(path2outputdir, 'dev2.npy'), np.array((input_dev2, target_dev2, 0), dtype=object))
+    #    5.3/ Val Data
+    input_val = np.concatenate((i_val, q_val), axis=1)
+    target_val = a_val
+    np.save(os.path.join(path2outputdir, 'val.npy'), np.array((input_val, target_val, 0), dtype=object))
+    #    5.4/ Train Data
     input_train = np.concatenate((i_train, q_train), axis=1)
     target_train = a_train
     np.save(os.path.join(path2outputdir, 'train.npy'), np.array((input_train, target_train, 0), dtype=object))
-    #    5.2/ Validation Data
-    input_val = np.concatenate((i_val, q_val), axis=1)
-    target_val = a_val
-    np.save(os.path.join(path2outputdir, 'dev.npy'), np.array((input_val, target_val, 0), dtype=object))
-    #    5.3/ Test Data
+    #    5.5/ Test Data
     input_test = np.concatenate((i_test, q_test), axis=1)
     target_test = a_test
-    np.save(os.path.join(path2outputdir, 'val.npy'), np.array((input_test, target_test, 0), dtype=object))
-    #    5.4/ Dictionary
+    np.save(os.path.join(path2outputdir, 'test.npy'), np.array((input_test, target_test, 0), dtype=object))
+    #    5.6/ Dictionary
+    with open(os.path.join(path2outputdir, 'qdict-dev1.pkl'), 'w') as fwrite:
+        pickle.dump(qword_dict_dev1, fwrite)
+    with open(os.path.join(path2outputdir, 'adict-dev1.pkl'), 'w') as fwrite:
+        pickle.dump(aword_dict_dev1, fwrite)
     with open(os.path.join(path2outputdir, 'qdict.pkl'), 'w') as fwrite:
         pickle.dump(qword_dict, fwrite)
     with open(os.path.join(path2outputdir, 'adict.pkl'), 'w') as fwrite:
         pickle.dump(aword_dict, fwrite)
-
 
 if __name__ == '__main__':
     main()

@@ -14,36 +14,35 @@ import keras.backend as K
 
 
 def data(path2indir):
-    data_train = np.load(os.path.join(path2indir, 'train.npy'))
-    q_train = data_train[0][:, 1:]
-    a_train = data_train[1][:]
+    data_dev1 = np.load(os.path.join(path2indir, 'dev1.npy'))
+    q_dev1 = data_dev1[0][:, 1:]
+    a_dev1 = data_dev1[1][:]
 
-    data_dev = np.load(os.path.join(path2indir, 'dev.npy'))
-    q_dev = data_dev[0][:, 1:]
-    a_dev = data_dev[1][:]
+    data_dev2 = np.load(os.path.join(path2indir, 'dev2.npy'))
+    q_dev2 = data_dev2[0][:, 1:]
+    a_dev2 = data_dev2[1][:]
 
     data_val = np.load(os.path.join(path2indir, 'val.npy'))
     q_val = data_val[0][:, 1:]
     a_val = data_val[1][:]
 
-    with open(os.path.join(path2indir, 'qdict.pkl')) as fread:
-        qdict = pickle.load(fread)
+    with open(os.path.join(path2indir, 'qdict-dev1.pkl')) as fread:
+        qdict_dev1 = pickle.load(fread)
 
-    with open(os.path.join(path2indir, 'adict.pkl')) as fread:
-        adict = pickle.load(fread)
+    with open(os.path.join(path2indir, 'adict-dev1.pkl')) as fread:
+        adict_dev1 = pickle.load(fread)
 
-
-    nb_ans = len(adict) - 1
-    a_train = np_utils.to_categorical(a_train, nb_ans)
-    a_dev = np_utils.to_categorical(a_dev, nb_ans)
+    nb_ans = len(adict_dev1) - 1
+    a_dev1 = np_utils.to_categorical(a_dev1, nb_ans)
+    a_dev2 = np_utils.to_categorical(a_dev2, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
-    return q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict
+    return q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1
 
 
-def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdir):
-    vocab_size = len(qdict)
-    nb_ans = len(adict) - 1
+def model(q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1, path2outdir):
+    vocab_size = len(qdict_dev1)
+    nb_ans = len(adict_dev1) - 1
 
     nb_epoch = 1000
 
@@ -65,8 +64,8 @@ def model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdi
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath=os.path.join(path2outdir, 'keras_weights.hdf5'), verbose=1, save_best_only=True)
-    quest_model.fit(q_train, a_train, batch_size=100, nb_epoch=nb_epoch,
-                    validation_data=(q_dev, a_dev),
+    quest_model.fit(q_dev1, a_dev1, batch_size=100, nb_epoch=nb_epoch,
+                    validation_data=(q_dev2, a_dev2),
                     callbacks=[early_stopping, checkpointer])
 
     print('##################################')
@@ -90,9 +89,9 @@ def main():
     path2indir = args.indir
     path2outdir = args.outdir
 
-    q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict = data(path2indir)
+    q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1 = data(path2indir)
 
-    model(q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdir)
+    model(q_dev1, q_dev2, q_val, a_dev1, a_dev2, a_val, qdict_dev1, adict_dev1, path2outdir)
 
 if __name__ == '__main__':
     main()
