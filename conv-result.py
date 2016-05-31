@@ -42,7 +42,7 @@ def main():
             json_str = json.loads(line)
             lst_quest_ids.append(json_str['question_id'])
 
-    fOut = h5py.File(path2outfile)
+    fOut = h5py.File(path2outfile, 'w')
     fOut.create_dataset('columns', data=columns)
     fOut.create_dataset('data', data=data)
     fOut.create_dataset('index', data=lst_quest_ids)
