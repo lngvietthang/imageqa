@@ -85,7 +85,7 @@ def model(img_feat_dev1, img_feat_dev2, img_feat_val, q_dev1, q_dev2, q_val, a_d
     path2outdir = os.environ.get('OUTDIR', 'no')
 
     vocab_size = len(qdict_dev1)
-    nb_ans = len(adict_dev1)
+    nb_ans = len(adict_dev1) - 1
 
     nb_epoch = 1000
 

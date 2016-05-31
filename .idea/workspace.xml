@@ -85,8 +85,8 @@
       <file leaf-file-name="cnn-bow-hyperas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="84" column="48" selection-start-line="84" selection-start-column="48" selection-end-line="84" selection-end-column="48" />
+            <state relative-caret-position="-57">
+              <caret line="87" column="32" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -413,13 +413,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Fix bugs: quest-only.py">
-      <created>1464165082244</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1464165082244</updated>
     </task>
     <task id="LOCAL-00004" summary="Fix bugs: quest-only.py">
       <created>1464167339341</created>
@@ -757,7 +750,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464667008608</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Fix bugs: cnn-bow-hyperas.py">
+      <created>1464674499279</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1464674499279</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -803,7 +803,6 @@
     <MESSAGE value="Fix bug: ltsm.py -&gt; Hyperas parameter" />
     <MESSAGE value="New: ltsm-1.py -&gt; No Hyperas parameter" />
     <MESSAGE value="New: cnn-bow-hyperas.py -&gt; Hyperas parameter" />
-    <MESSAGE value="Fix bugs: cnn-bow-hyperas.py" />
     <MESSAGE value="New: cnn-bow.py" />
     <MESSAGE value="Update: lstm.py" />
     <MESSAGE value="Update: question-only-1.py" />
@@ -811,7 +810,8 @@
     <MESSAGE value="Update: question-only-1.py, prepare-data.py" />
     <MESSAGE value="Fix bugs: prepare-data.py" />
     <MESSAGE value="Update: cnn-bow.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: cnn-bow.py" />
+    <MESSAGE value="Fix bugs: cnn-bow-hyperas.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: cnn-bow-hyperas.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1265,8 +1265,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="84" column="48" selection-start-line="84" selection-start-column="48" selection-end-line="84" selection-end-column="48" />
+        <state relative-caret-position="-57">
+          <caret line="87" column="32" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
