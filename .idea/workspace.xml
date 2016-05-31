@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="Fix bugs: question-only-1.py">
+    <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prepare-data.py" afterPath="$PROJECT_DIR$/prepare-data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/question-only-1.py" afterPath="$PROJECT_DIR$/question-only-1.py" />
     </list>
     <ignored path="imageqa.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1945">
-              <caret line="262" column="0" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
+            <state relative-caret-position="209">
+              <caret line="115" column="93" selection-start-line="115" selection-start-column="93" selection-end-line="115" selection-end-column="93" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -105,7 +104,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="question-only-1.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="question-only-1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/question-only-1.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="817">
@@ -142,8 +141,8 @@
         <option value="$PROJECT_DIR$/cnn-bow-hyperas.py" />
         <option value="$PROJECT_DIR$/cnn-bow.py" />
         <option value="$PROJECT_DIR$/lstm.py" />
-        <option value="$PROJECT_DIR$/prepare-data.py" />
         <option value="$PROJECT_DIR$/question-only-1.py" />
+        <option value="$PROJECT_DIR$/prepare-data.py" />
       </list>
     </option>
   </component>
@@ -715,7 +714,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464654765728</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Update: question-only-1.py, prepare-data.py">
+      <created>1464657284641</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1464657284641</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -767,7 +773,8 @@
     <MESSAGE value="Update: lstm.py" />
     <MESSAGE value="Update: question-only-1.py" />
     <MESSAGE value="Fix bugs: question-only-1.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: question-only-1.py" />
+    <MESSAGE value="Update: question-only-1.py, prepare-data.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: question-only-1.py, prepare-data.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1203,22 +1210,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prepare-data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1945">
-          <caret line="262" column="0" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/question-only-1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="817">
           <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prepare-data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="115" column="93" selection-start-line="115" selection-start-column="93" selection-end-line="115" selection-end-column="93" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

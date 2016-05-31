@@ -113,7 +113,7 @@ def map_imgid2idx(lst_imgid, lst_imgidx):
 
 
 def load_imgfeat(path2datadir, datapart):
-    path2imgfeat = os.path.join(path2datadir, 'mscoco2014_' + datapart + '_vgg-fc7.h5')
+    path2imgfeat = os.path.join(path2datadir, 'mscoco2014_' + datapart + '_image_vgg-fc7.h5')
     fdata = h5py.File(path2imgfeat)
     data = fdata['data'][:]
     index = fdata['index'][:]
@@ -122,8 +122,8 @@ def load_imgfeat(path2datadir, datapart):
 
 
 def load_data(path2datadir, dataname, datapart):
-    path2q = os.path.join(path2datadir, dataname + '_' + datapart + '_questions.json')
-    path2a = os.path.join(path2datadir, dataname + '_' + datapart + '_answers.json')
+    path2q = os.path.join(path2datadir, dataname + '_' + datapart + '_questions.jsonl')
+    path2a = os.path.join(path2datadir, dataname + '_' + datapart + '_answers.jsonl')
 
     # Load Training Questions and Answers
     lstq = []
