@@ -43,9 +43,11 @@ def main():
             lst_quest_ids.append(json_str['question_id'])
 
     fOut = h5py.File(path2outfile)
-    fOut['columns'] = columns
-    fOut['data'] = data
-    fOut['index'] = lst_quest_ids
+    fOut.create_dataset('columns', data=columns)
+    fOut.create_dataset('data', data=data)
+    fOut.create_dataset('index', data=lst_quest_ids)
+    fOut.flush()
+    fOut.close()
 
     print 'DONE!'
 
