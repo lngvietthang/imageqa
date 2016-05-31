@@ -8,13 +8,11 @@ def data():
     import os
     import numpy as np
     import pickle
-    from scipy import sparse
     import h5py
     from keras.utils import np_utils
 
     path2indir = os.environ.get('INDIR', 'no')
     img_h5key = os.environ.get('H5KEY', 'no')
-    sparse = os.environ.get('SPARSE', 'yes') == 'yes'
 
     data_dev1 = np.load(os.path.join(path2indir, 'dev1.npy'))
     q_dev1 = data_dev1[0][:, 1:]
@@ -43,29 +41,13 @@ def data():
     a_dev2 = np_utils.to_categorical(a_dev2, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
-    if sparse:
-        img_feat_sparse = h5py.File(os.path.join(path2indir, img_h5key + '.h5'))
-        img_feat_shape = img_feat_sparse[img_h5key + '_shape'][:]
-        img_feat_data = img_feat_sparse[img_h5key + '_data']
-        img_feat_indices = img_feat_sparse[img_h5key + '_indices']
-        img_feat_indptr = img_feat_sparse[img_h5key + '_indptr']
+    img_feat_h5 = h5py.File(os.path.join(path2indir, img_h5key + '.h5'))
+    img_feat = img_feat_h5[img_h5key + '_data']
+    img_mean = img_feat_h5[img_h5key + '_mean']
+    img_std = img_feat_h5[img_h5key + '_std']
 
-        img_feat = sparse.csr_matrix((img_feat_data, img_feat_indices, img_feat_indptr), shape=img_feat_shape)
-        img_feat = img_feat.toarray()
-
-        img_mean = img_feat_sparse[img_h5key + '_mean']
-        img_std = img_feat_sparse[img_h5key + '_std']
-
-        img_feat = (img_feat - img_mean) / img_std
-        del img_feat_sparse, img_mean, img_std
-    else:
-        img_feat_h5 = h5py.File(os.path.join(path2indir, img_h5key + '.h5'))
-        img_feat = img_feat_h5[img_h5key + '_data']
-        img_mean = img_feat_h5[img_h5key + '_mean']
-        img_std = img_feat_h5[img_h5key + '_std']
-
-        img_feat = (img_feat - img_mean) / img_std
-        del img_feat_h5, img_mean, img_std
+    img_feat = (img_feat - img_mean) / img_std
+    del img_feat_h5, img_mean, img_std
 
     img_feat_dev1 = np.zeros((len(i_dev1), img_feat.shape[1]), dtype='float32')
     for idx, img_id in enumerate(i_dev1): img_feat_dev1[idx] = img_feat[img_id][:]
