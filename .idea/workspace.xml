@@ -27,8 +27,8 @@
       <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="225" column="49" selection-start-line="225" selection-start-column="49" selection-end-line="225" selection-end-column="49" />
+            <state relative-caret-position="475">
+              <caret line="231" column="79" selection-start-line="231" selection-start-column="79" selection-end-line="231" selection-end-column="79" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -728,7 +728,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464657576488</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Fix bugs: prepare-data.py">
+      <created>1464657926127</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1464657926127</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1229,8 +1236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/prepare-data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="225" column="49" selection-start-line="225" selection-start-column="49" selection-end-line="225" selection-end-column="49" />
+        <state relative-caret-position="475">
+          <caret line="231" column="79" selection-start-line="231" selection-start-column="79" selection-end-line="231" selection-end-column="79" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
