@@ -14,7 +14,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 import keras.backend as K
 
 
-def data(path2indir, h5key):
+def data(path2indir, h5key, sparse):
     data_dev1 = np.load(os.path.join(path2indir, 'dev1.npy'))
     q_dev1 = data_dev1[0][:, 1:]
     i_dev1 = data_dev1[0][:, 0]
@@ -41,20 +41,29 @@ def data(path2indir, h5key):
     a_dev2 = np_utils.to_categorical(a_dev2, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
-    depnet_feat_sparse = h5py.File(os.path.join(path2indir, h5key + '.h5'))
-    depnet_feat_shape = depnet_feat_sparse[h5key + '_shape'][:]
-    depnet_feat_data = depnet_feat_sparse[h5key + '_data']
-    depnet_feat_indices = depnet_feat_sparse[h5key + '_indices']
-    depnet_feat_indptr = depnet_feat_sparse[h5key + '_indptr']
+    if sparse:
+        depnet_feat_sparse = h5py.File(os.path.join(path2indir, h5key + '.h5'))
+        depnet_feat_shape = depnet_feat_sparse[h5key + '_shape'][:]
+        depnet_feat_data = depnet_feat_sparse[h5key + '_data']
+        depnet_feat_indices = depnet_feat_sparse[h5key + '_indices']
+        depnet_feat_indptr = depnet_feat_sparse[h5key + '_indptr']
 
-    depnet_feat = sparse.csr_matrix((depnet_feat_data, depnet_feat_indices, depnet_feat_indptr), shape=depnet_feat_shape)
-    depnet_feat = depnet_feat.toarray()
+        depnet_feat = sparse.csr_matrix((depnet_feat_data, depnet_feat_indices, depnet_feat_indptr), shape=depnet_feat_shape)
+        depnet_feat = depnet_feat.toarray()
 
-    depnet_mean = depnet_feat_sparse[h5key + '_mean']
-    depnet_std = depnet_feat_sparse[h5key + '_std']
+        depnet_mean = depnet_feat_sparse[h5key + '_mean']
+        depnet_std = depnet_feat_sparse[h5key + '_std']
 
-    depnet_feat = (depnet_feat - depnet_mean) / depnet_std
-    del depnet_feat_sparse, depnet_mean, depnet_std
+        depnet_feat = (depnet_feat - depnet_mean) / depnet_std
+        del depnet_feat_sparse, depnet_mean, depnet_std
+    else:
+        depnet_feat_h5 = h5py.File(os.path.join(path2indir, h5key + '.h5'))
+        depnet_feat = depnet_feat_h5[h5key + '_data']
+        depnet_mean = depnet_feat_h5[h5key + '_mean']
+        depnet_std = depnet_feat_h5[h5key + '_std']
+
+        depnet_feat = (depnet_feat - depnet_mean) / depnet_std
+        del depnet_feat_h5, depnet_mean, depnet_std
 
     depnet_feat_dev1 = np.zeros((len(i_dev1), depnet_feat.shape[1]), dtype='float32')
     for idx, img_id in enumerate(i_dev1):
