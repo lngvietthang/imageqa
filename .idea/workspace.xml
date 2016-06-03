@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/capfeat-bow-hyperas.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/2capfeat-bow-hyperas.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="imageqa.iws" />
@@ -24,34 +24,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/prepare-data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2720">
-              <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cnn-bow-hyperas.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="56" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="capfeat-bow-hyperas.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="capfeat-bow-hyperas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/capfeat-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="478">
               <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -63,8 +39,20 @@
       <file leaf-file-name="cnn-depnet-bow-hyperas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1869">
-              <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+            <state relative-caret-position="860">
+              <caret line="43" column="52" selection-start-line="0" selection-start-column="0" selection-end-line="177" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2capfeat-bow-hyperas.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/2capfeat-bow-hyperas.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="78" column="26" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -75,20 +63,8 @@
       <file leaf-file-name="cnn-depnet-bow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnn-depnet-bow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="157" column="47" selection-start-line="157" selection-start-column="47" selection-end-line="157" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="depnet-bow.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/depnet-bow.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2140">
-              <caret line="116" column="33" selection-start-line="116" selection-start-column="33" selection-end-line="116" selection-end-column="33" />
+            <state relative-caret-position="344">
+              <caret line="136" column="29" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="29" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -104,16 +80,6 @@
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cnn-bow-hyperas-1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas-1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1580">
-              <caret line="82" column="81" selection-start-line="82" selection-start-column="67" selection-end-line="82" selection-end-column="81" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -174,6 +140,7 @@
         <option value="$PROJECT_DIR$/cnn-depnet-bow-hyperas.py" />
         <option value="$PROJECT_DIR$/cnn-depnet-bow.py" />
         <option value="$PROJECT_DIR$/capfeat-bow-hyperas.py" />
+        <option value="$PROJECT_DIR$/2capfeat-bow-hyperas.py" />
       </list>
     </option>
   </component>
@@ -442,13 +409,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Fix bug: ltsm.py -&gt; Hyperas parameter">
-      <created>1464248275878</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1464248275878</updated>
     </task>
     <task id="LOCAL-00019" summary="Fix bug: ltsm.py -&gt; Hyperas parameter">
       <created>1464248394019</created>
@@ -786,7 +746,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464973640598</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="New: capfeat-bow-hyperas.py">
+      <created>1464976482120</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1464976482121</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -797,7 +764,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32795697" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -843,7 +810,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="New: script builds question model." />
     <MESSAGE value="Fix bugs: quest-only.py" />
     <MESSAGE value="New: question-only-1.py -&gt; No hyperas paramenter" />
     <MESSAGE value="New: ltsm.py -&gt; Hyperas parameter; Fix bugs: quest-only.py" />
@@ -868,23 +834,14 @@
     <MESSAGE value="Fix bugs: cnn-depnet-bow-hyperas.py" />
     <MESSAGE value="New: cnn-depnet-bow.py &lt;- No hyperas" />
     <MESSAGE value="Fix bugs: cnn-depnet-bow.py &lt;- No hyperas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: cnn-depnet-bow.py &lt;- No hyperas" />
+    <MESSAGE value="New: capfeat-bow-hyperas.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="New: capfeat-bow-hyperas.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/prepare-data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3857">
-          <caret line="214" column="62" selection-start-line="214" selection-start-column="62" selection-end-line="214" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lstm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1140">
@@ -1244,20 +1201,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
+    <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1869">
-          <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="157" column="47" selection-start-line="157" selection-start-column="47" selection-end-line="157" selection-end-column="47" />
+        <state relative-caret-position="298">
+          <caret line="56" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1274,10 +1221,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
+    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="56" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="10" />
+        <state relative-caret-position="344">
+          <caret line="136" column="29" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="29" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1286,8 +1233,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/capfeat-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="478">
           <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="860">
+          <caret line="43" column="52" selection-start-line="0" selection-start-column="0" selection-end-line="177" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2capfeat-bow-hyperas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="78" column="26" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
