@@ -133,7 +133,7 @@ def main():
     parser.add_argument('-indir', required=True, type=str)
     parser.add_argument('-outdir', required=True, type=str)
     parser.add_argument('-h5key', required=True, type=str)
-    parser.add_argument('-sparse', default=True, type=bool)
+    parser.add_argument('-sparse', default=False, type=bool)
     args = parser.parse_args()
 
     path2indir = args.indir
