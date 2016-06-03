@@ -153,7 +153,7 @@ def model(depnet_feat_dev1, depnet_feat_dev2, depnet_feat_val, img_feat_dev1, im
                    callbacks=[early_stopping, checkpointer])
     multimodal.load_weights(os.path.join(path2outdir, 'cnn_bow_weights.hdf5'))
     score, acc = multimodal.evaluate([img_feat_val, depnet_feat_val, q_val], a_val, verbose=1)
-    result = multimodal.predict([depnet_feat_val, q_val], verbose=1)
+    result = multimodal.predict([img_feat_val, depnet_feat_val, q_val], verbose=1)
     np.save(os.path.join(path2outdir, img_h5key + '-bow-results.npy'), result)
     print('##################################')
     print('Test accuracy:%.4f' % acc)
