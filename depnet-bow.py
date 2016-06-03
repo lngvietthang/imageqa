@@ -133,13 +133,15 @@ def main():
     parser.add_argument('-indir', required=True, type=str)
     parser.add_argument('-outdir', required=True, type=str)
     parser.add_argument('-h5key', required=True, type=str)
+    parser.add_argument('-sparse', default=True, type=bool)
     args = parser.parse_args()
 
     path2indir = args.indir
     path2outdir = args.outdir
     h5key = args.h5key
+    sparse = args.sparse
 
-    img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict = data(path2indir, h5key)
+    img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict = data(path2indir, h5key, sparse)
 
     model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdir, h5key)
 
