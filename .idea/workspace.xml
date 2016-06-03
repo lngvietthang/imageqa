@@ -63,8 +63,8 @@
       <file leaf-file-name="cnn-depnet-bow-hyperas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1482">
-              <caret line="87" column="18" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+            <state relative-caret-position="551">
+              <caret line="65" column="51" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -442,13 +442,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00015" summary="New: question-only-1.py -&gt; No hyperas paramenter">
-      <created>1464244645559</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1464244645559</updated>
-    </task>
     <task id="LOCAL-00016" summary="Fix bugs: question-only-1.py">
       <created>1464244930558</created>
       <option name="number" value="00016" />
@@ -785,7 +778,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464951388074</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Fix bugs: cnn-depnet-bow-hyperas.py">
+      <created>1464952338180</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1464952338180</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -865,7 +865,8 @@
     <MESSAGE value="Fix bugs: cnn-bow-hyperas-1.py &lt;- No Sparse matrix" />
     <MESSAGE value="Update: depnet-bow.py &lt;- add checking sparse matrix" />
     <MESSAGE value="New: cnn-depnet-bow-hyperas.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="New: cnn-depnet-bow-hyperas.py" />
+    <MESSAGE value="Fix bugs: cnn-depnet-bow-hyperas.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: cnn-depnet-bow-hyperas.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1283,8 +1284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn-depnet-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1482">
-          <caret line="87" column="18" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+        <state relative-caret-position="551">
+          <caret line="65" column="51" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
