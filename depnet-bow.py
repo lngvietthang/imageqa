@@ -58,9 +58,9 @@ def data(path2indir, h5key, sparse):
         del depnet_feat_sparse, depnet_mean, depnet_std
     else:
         depnet_feat_h5 = h5py.File(os.path.join(path2indir, h5key + '.h5'))
-        depnet_feat = depnet_feat_h5[h5key + '_data']
-        depnet_mean = depnet_feat_h5[h5key + '_mean']
-        depnet_std = depnet_feat_h5[h5key + '_std']
+        depnet_feat = depnet_feat_h5[h5key + '_data'][:]
+        depnet_mean = depnet_feat_h5[h5key + '_mean'][:]
+        depnet_std = depnet_feat_h5[h5key + '_std'][:]
 
         depnet_feat = (depnet_feat - depnet_mean) / depnet_std
         del depnet_feat_h5, depnet_mean, depnet_std
