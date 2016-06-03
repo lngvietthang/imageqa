@@ -15,7 +15,7 @@ def data():
     path2indir = os.environ.get('INDIR', 'no')
     img_h5key = os.environ.get('IMGH5KEY', 'no')
     depnet_h5key = os.environ.get('DEPH5KEY', 'no')
-    sparse = os.environ.get('SPARSE', 'yes') == 'yes'
+    is_sparse = os.environ.get('SPARSE', 'yes') == 'yes'
 
     data_dev1 = np.load(os.path.join(path2indir, 'dev1.npy'))
     q_dev1 = data_dev1[0][:, 1:]
@@ -44,7 +44,7 @@ def data():
     a_dev2 = np_utils.to_categorical(a_dev2, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
-    if sparse:
+    if is_sparse:
         img_feat_sparse = h5py.File(os.path.join(path2indir, img_h5key + '.h5'))
         img_feat_shape = img_feat_sparse[img_h5key + '_shape'][:]
         img_feat_data = img_feat_sparse[img_h5key + '_data']
