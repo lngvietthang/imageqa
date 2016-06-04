@@ -14,7 +14,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 import keras.backend as K
 
 
-def data(path2indir, h5key, sparse):
+def data(path2indir, h5key, is_sparse):
     data_dev1 = np.load(os.path.join(path2indir, 'dev1.npy'))
     q_dev1 = data_dev1[0][:, 1:]
     i_dev1 = data_dev1[0][:, 0]
@@ -41,7 +41,7 @@ def data(path2indir, h5key, sparse):
     a_dev2 = np_utils.to_categorical(a_dev2, nb_ans)
     a_val = np_utils.to_categorical(a_val, nb_ans)
 
-    if sparse:
+    if is_sparse:
         depnet_feat_sparse = h5py.File(os.path.join(path2indir, h5key + '.h5'))
         depnet_feat_shape = depnet_feat_sparse[h5key + '_shape'][:]
         depnet_feat_data = depnet_feat_sparse[h5key + '_data']
@@ -132,9 +132,9 @@ def main():
     path2indir = args.indir
     path2outdir = args.outdir
     h5key = args.h5key
-    sparse = args.sparse
+    is_sparse = args.sparse
 
-    img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict = data(path2indir, h5key, sparse)
+    img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict = data(path2indir, h5key, is_sparse)
 
     model(img_feat_train, img_feat_dev, img_feat_val, q_train, q_dev, q_val, a_train, a_dev, a_val, qdict, adict, path2outdir, h5key)
 
