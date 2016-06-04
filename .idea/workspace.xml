@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="New: 2capfeat-bow.py; capfeat-bow.py &lt;- No hyperas">
+    <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/capfeat-bow.py" afterPath="$PROJECT_DIR$/capfeat-bow.py" />
     </list>
@@ -27,8 +27,8 @@
       <file leaf-file-name="capfeat-bow-hyperas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/capfeat-bow-hyperas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1060">
-              <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+            <state relative-caret-position="138">
+              <caret line="88" column="81" selection-start-line="88" selection-start-column="78" selection-end-line="88" selection-end-column="81" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -39,8 +39,8 @@
       <file leaf-file-name="capfeat-bow.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/capfeat-bow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="126" column="59" selection-start-line="126" selection-start-column="59" selection-end-line="126" selection-end-column="59" />
+            <state relative-caret-position="-162">
+              <caret line="84" column="66" selection-start-line="84" selection-start-column="66" selection-end-line="84" selection-end-column="66" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -51,7 +51,7 @@
       <file leaf-file-name="2capfeat-bow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/2capfeat-bow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
+            <state relative-caret-position="460">
               <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -217,6 +217,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -237,7 +238,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -433,13 +433,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Fix bug: ltsm.py -&gt; Hyperas parameter">
-      <created>1464252426757</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1464252426757</updated>
     </task>
     <task id="LOCAL-00022" summary="New: ltsm-1.py -&gt; No Hyperas parameter">
       <created>1464253533233</created>
@@ -777,7 +770,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464980996421</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Fix bugs: capfeat-bow.py &lt;- No hyperas">
+      <created>1465016615490</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1465016615501</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -834,7 +834,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="New: ltsm.py -&gt; Hyperas parameter; Fix bugs: quest-only.py" />
     <MESSAGE value="Fix bug: ltsm.py -&gt; Hyperas parameter" />
     <MESSAGE value="New: ltsm-1.py -&gt; No Hyperas parameter" />
     <MESSAGE value="New: cnn-bow-hyperas.py -&gt; Hyperas parameter" />
@@ -859,7 +858,8 @@
     <MESSAGE value="New: capfeat-bow-hyperas.py" />
     <MESSAGE value="New: 2capfeat-bow-hyperas.py" />
     <MESSAGE value="New: 2capfeat-bow.py; capfeat-bow.py &lt;- No hyperas" />
-    <option name="LAST_COMMIT_MESSAGE" value="New: 2capfeat-bow.py; capfeat-bow.py &lt;- No hyperas" />
+    <MESSAGE value="Fix bugs: capfeat-bow.py &lt;- No hyperas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs: capfeat-bow.py &lt;- No hyperas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1123,16 +1123,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/capfeat-bow-hyperas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1060">
-          <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1038">
@@ -1198,8 +1188,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/2capfeat-bow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
+        <state relative-caret-position="460">
           <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/capfeat-bow-hyperas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="88" column="81" selection-start-line="88" selection-start-column="78" selection-end-line="88" selection-end-column="81" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1208,8 +1208,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/capfeat-bow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="126" column="59" selection-start-line="126" selection-start-column="59" selection-end-line="126" selection-end-column="59" />
+        <state relative-caret-position="-162">
+          <caret line="84" column="66" selection-start-line="84" selection-start-column="66" selection-end-line="84" selection-end-column="66" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

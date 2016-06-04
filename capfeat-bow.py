@@ -82,9 +82,9 @@ def model(depnet_feat_dev1, depnet_feat_dev2, depnet_feat_val, q_dev1, q_dev2, q
     nb_epoch = 1000
 
     quest_model = Sequential()
-    quest_model.add(Embedding(input_dim=vocab_size, output_dim=500,
-                              init='glorot_normal',
-                              mask_zero=False, dropout=0.15
+    quest_model.add(Embedding(input_dim=vocab_size, output_dim=200,
+                              init='glorot_uniform',
+                              mask_zero=False, dropout=0.2
                               )
                     )
     quest_model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0], ) + shape[2:]))
@@ -95,19 +95,19 @@ def model(depnet_feat_dev1, depnet_feat_dev2, depnet_feat_val, q_dev1, q_dev2, q
 
     multimodal = Sequential()
     multimodal.add(Merge([depnet_model, quest_model], mode='concat', concat_axis=1))
-    multimodal.add(Dropout(0.86))
+    multimodal.add(Dropout(0.04))
     multimodal.add(Dense(nb_ans))
     multimodal.add(Activation('softmax'))
 
     multimodal.compile(loss='categorical_crossentropy',
-                       optimizer='adagrad',
+                       optimizer='adamax',
                        metrics=['accuracy'])
 
     print('##################################')
     print('Train...')
     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
     checkpointer = ModelCheckpoint(filepath=os.path.join(path2outdir, 'cnn_bow_weights.hdf5'), verbose=1, save_best_only=True)
-    multimodal.fit([depnet_feat_dev1, q_dev1], a_dev1, batch_size=64, nb_epoch=nb_epoch,
+    multimodal.fit([depnet_feat_dev1, q_dev1], a_dev1, batch_size=100, nb_epoch=nb_epoch,
                    validation_data=([depnet_feat_dev2, q_dev2], a_dev2),
                    callbacks=[early_stopping, checkpointer])
     print('##################################')
