@@ -39,6 +39,11 @@ sklearn_model_filename = 'model.pkl'
 vocab_filename = 'vocab.json'
 
 ######################################################################
+from keras.models import Sequential
+from keras.layers.embeddings import Embedding
+from keras.layers.core import Lambda, Dense, Activation
+from keras.callbacks import EarlyStopping, ModelCheckpoint
+import keras.backend as K
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
@@ -144,38 +149,87 @@ def generate_params(grid):
     return [dict(zip(keys, params)) for params in itertools.product(*values)]
 
 
-def train(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1, num_jobs=1,
-          framework='keras',
-          param_grid=None, **model_params):
+# def train(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1, num_jobs=1,
+#           framework='keras',
+#           param_grid=None, **model_params):
+def train(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1, hyperopt_params,
+          **model_params):
     best_model = None
     best_loss = None
     best_acc = None
-    best_params = None
-    logs = []
-    params_list = generate_params(param_grid)
-    logger.info('Start training: {} parameter grids'.format(len(params_list)))
-    for i, params in enumerate(params_list):
-        logger.info('Grid {}'.format(i + 1))
-        merged_params = dict(model_params, **params)
-        if framework == 'keras':
-            model, loss, acc = train_keras(x, y, model_name, validation_data, num_iter,
-                                           batch_size=batch_size, on_memory=on_memory, early_stopping=early_stopping,
-                                           num_jobs=num_jobs,
-                                           **merged_params)
-        else:
-            assert (framework == 'sklearn')
-            model, loss, acc = train_sklearn(x, y, model_name, validation_data, num_iter,
-                                             on_memory=on_memory, num_jobs=num_jobs,
-                                             **merged_params)
-        # if best_model is None or acc > best_acc:
-        if best_model is None or loss < best_loss:
-            best_model, best_loss, best_acc, best_params = model, loss, acc, params
-        logs.append(params.values() + [loss, acc])
-        logger.info('Grid {} done: loss={}, acc={}'.format(i + 1, loss, acc))
-    logger.info('Best loss={}, acc={}, model: {}'.format(best_loss, best_acc, best_params))
-    logger.info('{}\tloss\tacc'.format('\t'.join(params.keys())))
-    for log in logs:
-        logger.info('\t'.join([str(l) for l in log]))
+    # best_params = None
+    # logs = []
+    # params_list = generate_params(param_grid)
+    # logger.info('Start training: {} parameter grids'.format(len(params_list)))
+    # for i, params in enumerate(params_list):
+    #     logger.info('Grid {}'.format(i + 1))
+    #     merged_params = dict(model_params, **params)
+    #     if framework == 'keras':
+    #         model, loss, acc = train_keras(x, y, model_name, validation_data, num_iter,
+    #                                        batch_size=batch_size, on_memory=on_memory, early_stopping=early_stopping,
+    #                                        num_jobs=num_jobs,
+    #                                        **merged_params)
+    #     else:
+    #         assert (framework == 'sklearn')
+    #         model, loss, acc = train_sklearn(x, y, model_name, validation_data, num_iter,
+    #                                          on_memory=on_memory, num_jobs=num_jobs,
+    #                                          **merged_params)
+    #     # if best_model is None or acc > best_acc:
+    #     if best_model is None or loss < best_loss:
+    #         best_model, best_loss, best_acc, best_params = model, loss, acc, params
+    #     logs.append(params.values() + [loss, acc])
+    #     logger.info('Grid {} done: loss={}, acc={}'.format(i + 1, loss, acc))
+    # logger.info('Best loss={}, acc={}, model: {}'.format(best_loss, best_acc, best_params))
+    # logger.info('{}\tloss\tacc'.format('\t'.join(params.keys())))
+    # for log in logs:
+    #     logger.info('\t'.join([str(l) for l in log]))
+
+    def keras_fmin_fnct(space):
+        """
+
+        :param space:
+        :return:
+        """
+        quest_model = Sequential()
+        quest_model.add(Embedding(input_dim=vocab_size, output_dim=space['WEmbDim'],
+                                  init=space['WEmbInit'],
+                                  mask_zero=False, dropout=space['WEmbDrop']
+                                  )
+                        )
+        quest_model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0],) + shape[2:]))
+        quest_model.add(Dense(nb_ans))
+        quest_model.add(Activation('softmax'))
+
+        quest_model.compile(loss='categorical_crossentropy',
+                            optimizer={{choice(['sgd', 'adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'])}},
+                            metrics=['accuracy'])
+
+        print('##################################')
+        print('Train...')
+        callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
+        temp_model = tempfile.NamedTemporaryFile()
+        callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
+        callbacks.append(FlushStdout())
+
+        quest_model.fit(x, y, batch_size=batch_size, nb_epoch=num_iter,
+                        validation_data=validation_data,
+                        callbacks=callbacks)
+
+        score, acc = quest_model.evaluate(validation_data[0], validation_data[1], verbose=1)
+
+        print('##################################')
+        print('Test accuracy:%.4f' % acc)
+
+        return {'loss': -acc, 'status': STATUS_OK, 'model': quest_model}
+
+    def get_space():
+        return {
+            'WEmbDim': hp.choice('WEmbDim', hyperopt_params['wembdim']),
+            'WEmbInit': hp.choice('WEmbInit', hyperopt_params['wembinit']),
+            'WEmbDrop': hp.choice('WEmbDrop', hyperopt_params['wembdropout']),
+        }
+
+
     return best_model, best_loss, best_acc
 
 
@@ -390,22 +444,24 @@ def train_mode(args):
         val_data = (val_x, val_y)
     else:
         val_data = None
-    # logger.info('Create train/val split')
-    # (train_x, val_x, train_y, val_y, train_index, val_index) = train_test_split(x, y, index, test_size = args.split_ratio, random_state=0)
 
     logger.info('%s samples, %s labels, %s features', x.shape[0], y.shape[1], x.shape[1])
     check_train_data(x, y)
     logger.info('Start training: %s', args.model)
     training_start = datetime.now()
     model_params = dict([]) if args.model_params is None else json.loads(args.model_params)
-    if args.param_grid is None:
-        logger.info('train mode')
+    if args.hyperopt_params is None:
+        logger.info('Keras: Train mode')
     else:
-        logger.info('Grid search mode')
+        logger.info('Hyperopt + Keras: Search mode')
+    # model, loss, acc = train(x, y, model_name=args.model, validation_data=val_data, num_iter=args.num_iter,
+    #                          batch_size=args.batch_size, on_memory=(args.on == 'memory'),
+    #                          early_stopping=args.early_stopping, num_jobs=args.num_jobs, framework=args.framework,
+    #                          param_grid=json.loads(args.param_grid), **model_params)
+
     model, loss, acc = train(x, y, model_name=args.model, validation_data=val_data, num_iter=args.num_iter,
                              batch_size=args.batch_size, on_memory=(args.on == 'memory'),
-                             early_stopping=args.early_stopping, num_jobs=args.num_jobs, framework=args.framework,
-                             param_grid=json.loads(args.param_grid), **model_params)
+                             early_stopping=args.early_stopping, hyperopt_params=json.loads(args.hyperopt_params), **model_params)
     logger.info('Training time: {}'.format(datetime.now() - training_start))
     logger.info('Loss={}, acc={}'.format(loss, acc))
 
@@ -486,10 +542,6 @@ if __name__ == '__main__':
                            help='training/test data file; the file must contain both x and y')
     argparser.add_argument('-x', '--x_file', type=str, dest='x_file', help='feature data file (i.e. x)')
     argparser.add_argument('-y', '--y_file', type=str, dest='y_file', help='label data file (i.e. y)')
-    argparser.add_argument('--dev', type=str, dest='dev_file',
-                           help='development data file; the file must contain both x and y')
-    argparser.add_argument('--dev_x', type=str, dest='dev_x_file', help='feature data file for development')
-    argparser.add_argument('--dev_y', type=str, dest='dev_y_file', help='label data file for development')
     argparser.add_argument('--val', type=str, dest='val_file',
                            help='validation data file; the file must contain both x and y')
     argparser.add_argument('--val_x', type=str, dest='val_x_file', help='feature data file for validation')
@@ -507,8 +559,8 @@ if __name__ == '__main__':
     # argparser.add_argument('-j', '--num_jobs', type=int, dest='num_jobs', default=1, help='number of parallel jobs')
     # argparser.add_argument('-s', '--split_ratio', type=float, dest='split_ratio', default=0.0,
     #                       help='ratio of train/val split')
-    # argparser.add_argument('-n', '--num_samples', type=int, dest='num_samples', default=0,
-    #                       help='number of training samples')
+    argparser.add_argument('-n', '--num_samples', type=int, dest='num_samples', default=0,
+                           help='number of training samples')
     argparser.add_argument('--y_vocab', type=str, dest='y_vocab', default='columns', help='vocabulary of y')
     # argparser.add_argument('-p', '--threshold', type=float, dest='threshold', default=0.5, help='probability threshold to output label')
     # argparser.add_argument('--num_units', type=int, dest='num_units', default=100, help='Number of units of hidden layer (multilayer perceptron only)')
@@ -518,10 +570,10 @@ if __name__ == '__main__':
                            help='put data on memory or file')
     argparser.add_argument('--early_stopping', type=int, dest='early_stopping', default=-1,
                            help='patience for early stopping (negative value means no early stopping)')
-    # argparser.add_argument('--model_params', type=str, dest='model_params', default=None,
-    #                       help='dict (JSON format) of hyperparameters passed to the model')
-    # argparser.add_argument('--param_grid', type=str, dest='param_grid', default=None,
-    #                       help='dict (JSON format) of hyperparameter candidates to be optimized; hyperparameter optimization turned off if None')
+    argparser.add_argument('--model_params', type=str, dest='model_params', default=None,
+                           help='dict (JSON format) of hyperparameters passed to the model')
+    argparser.add_argument('--hyperopt_params', type=str, dest='hyperopt_params', default=None,
+                           help='dict (JSON format) of hyperparameter candidates to be optimized with hyperopt; hyperparameter optimization turned off if None')
     args = argparser.parse_args()
     logger.info('Command-line arguments: %s', args)
 
