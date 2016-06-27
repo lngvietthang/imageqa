@@ -75,11 +75,21 @@
       <file leaf-file-name="quest2num.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quest2num.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+            <state relative-caret-position="348">
+              <caret line="117" column="67" selection-start-line="117" selection-start-column="67" selection-end-line="117" selection-end-column="67" />
               <folding>
                 <element signature="e#105#142#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conv-result.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conv-result.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -460,13 +470,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00024" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464283121476</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1464283121476</updated>
-    </task>
     <task id="LOCAL-00025" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464283303888</created>
       <option name="number" value="00025" />
@@ -803,7 +806,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467029015065</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Rewriting">
+      <created>1467029506919</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1467029506919</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1074,13 +1084,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conv-result.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnn-bow-hyperas-1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1580">
@@ -1224,10 +1227,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conv-result.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/quest2num.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+        <state relative-caret-position="348">
+          <caret line="117" column="67" selection-start-line="117" selection-start-column="67" selection-end-line="117" selection-end-column="67" />
           <folding>
             <element signature="e#105#142#0" expanded="true" />
           </folding>

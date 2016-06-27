@@ -15,8 +15,6 @@ from nltk.stem import WordNetLemmatizer
 
 import numpy as np
 
-from ast import literal_eval
-
 logger = logging.getLogger(__name__)
 
 
@@ -117,7 +115,7 @@ if __name__ == '__main__':
         with h5py.File(args.output_file, "w") as output:
             output.create_dataset(args.index_attr, data=np.array(lst_index))
             output.create_dataset(args.data_attr, data=arr_quests)
-            output.create_dataset("columns", data=np.array(literal_eval(word_dict.keys())))
+            output.create_dataset("columns", data=word_dict.keys())
 
         if args.vocab_file is None:
             logger.info("Save vocabulary")
