@@ -9,78 +9,62 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../utils')
 
 import argparse
 import numpy
-import scipy
 import logging
 from datetime import datetime
 import h5py
 import json
-import itertools
 import tempfile
-
-from sklearn.linear_model import SGDClassifier, LogisticRegression
-from sklearn.multiclass import OneVsRestClassifier
-# from sklearn.multiclass import OneVsRestClassifier
-# from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, log_loss
-from sklearn.externals import joblib
-# from sklearn.cross_validation import train_test_split
-# from sklearn.grid_search import GridSearchCV
-# #from sknn.mlp import Classifier, Layer
-from sklearn.preprocessing import label_binarize
 
 import vocabulary
 import csrmatrix
 
-logger = logging.getLogger(__name__)
-
-model_filename = 'model.json'
-param_filename = 'param.h5'
-sklearn_model_filename = 'model.pkl'
-vocab_filename = 'vocab.json'
-
-######################################################################
 from keras.models import Sequential
 from keras.layers.embeddings import Embedding
 from keras.layers.core import Lambda, Dense, Activation
-from keras.callbacks import EarlyStopping, ModelCheckpoint
 import keras.backend as K
-
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.layers.normalization import BatchNormalization
-from keras import regularizers
+from keras.utils import np_utils
 from keras.models import model_from_json
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
 
+from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 
-def mlp(input_size, output_size, num_units=1024, activation='relu', dropout=0.5, l2=0.0, optimizer='adam'):
-    logger.info(
-        'num_units={}, activation={}, dropout={}, l2={}, optimizer={}'.format(num_units, activation, dropout, l2,
-                                                                              optimizer))
-    reg_l2 = regularizers.l2(l2) if l2 > 0.0 else None
-    model = Sequential()
-    model.add(Dense(num_units, input_dim=input_size, activation=activation, W_regularizer=reg_l2))
-    # model.add(BatchNormalization(input_shape=(input_size,), mode=0))
-    # model.add(Dense(num_units, activation=activation, W_regularizer=reg_l2))
-    if dropout > 0.0: model.add(Dropout(dropout))
-    # model.add(Dense(512, activation='relu'))
-    # model.add(Dropout(0.5))
-    model.add(Dense(output_size, activation='softmax', W_regularizer=reg_l2))
-    model.compile(loss='categorical_crossentropy',
-                  metrics=['accuracy'],
-                  optimizer=optimizer)
-    return model
+logger = logging.getLogger(__name__)
+
+model_filename = 'bow.json'
+param_filename = 'bow_param.h5'
+vocab_filename = 'ans_vocab.json'
 
 
-def loglinear(input_size, output_size, l2=0.0, optimizer='adam'):
-    logger.info('l2={}, optimizer={}'.format(l2, optimizer))
-    reg_l2 = regularizers.l2(l2) if l2 > 0.0 else None
-    model = Sequential()
-    model.add(Dense(output_size, input_dim=input_size, activation='softmax', W_regularizer=reg_l2))
-    model.compile(loss='categorical_crossentropy',
-                  metrics=['accuracy'],
-                  optimizer=optimizer)
-    return model
+######################################################################
+
+# def mlp(input_size, output_size, num_units=1024, activation='relu', dropout=0.5, l2=0.0, optimizer='adam'):
+#     logger.info(
+#         'num_units={}, activation={}, dropout={}, l2={}, optimizer={}'.format(num_units, activation, dropout, l2,
+#                                                                               optimizer))
+#     reg_l2 = regularizers.l2(l2) if l2 > 0.0 else None
+#     model = Sequential()
+#     model.add(Dense(num_units, input_dim=input_size, activation=activation, W_regularizer=reg_l2))
+#     # model.add(BatchNormalization(input_shape=(input_size,), mode=0))
+#     # model.add(Dense(num_units, activation=activation, W_regularizer=reg_l2))
+#     if dropout > 0.0: model.add(Dropout(dropout))
+#     # model.add(Dense(512, activation='relu'))
+#     # model.add(Dropout(0.5))
+#     model.add(Dense(output_size, activation='softmax', W_regularizer=reg_l2))
+#     model.compile(loss='categorical_crossentropy',
+#                   metrics=['accuracy'],
+#                   optimizer=optimizer)
+#     return model
+#
+#
+# def loglinear(input_size, output_size, l2=0.0, optimizer='adam'):
+#     logger.info('l2={}, optimizer={}'.format(l2, optimizer))
+#     reg_l2 = regularizers.l2(l2) if l2 > 0.0 else None
+#     model = Sequential()
+#     model.add(Dense(output_size, input_dim=input_size, activation='softmax', W_regularizer=reg_l2))
+#     model.compile(loss='categorical_crossentropy',
+#                   metrics=['accuracy'],
+#                   optimizer=optimizer)
+#     return model
 
 
 # callback to flush stdout - in order to see log messages timely
@@ -92,143 +76,151 @@ class FlushStdout(Callback):
         sys.stdout.flush()
 
 
-def train_keras(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
-                num_jobs=1, **model_params):
-    num_labels = y.shape[1]
-    feature_size = x.shape[1]
-    if model_name == 'loglinear':
-        model = loglinear(feature_size, num_labels, **model_params)
-    else:
-        assert (model_name == 'mlp')
-        model = mlp(feature_size, num_labels, **model_params)
-    shuffle = True if on_memory else 'batch'
+def train_bow(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+              wemb_dim=200, wemb_init='glorot_uniform', wemb_dropout=0.2, optimizer='adamax'):
+    # TODO: Support Masking
+    # -> Use the class in gist (https://gist.github.com/lngvietthang/67f35c1ee4481284dfcd9b34c7fe1fc6)
+    model = Sequential()
+    model.add(Embedding(input_dim=vocab_size, output_dim=wemb_dim,
+                        init=wemb_init, mask_zero=False, dropout=wemb_dropout))
+    model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0],) + shape[2:]))
+    model.add(Dense(nb_ans))
+    model.add(Activation('softmax'))
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=optimizer,
+                  metrics=['accuracy'])
+
     callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
     temp_model = tempfile.NamedTemporaryFile()
     callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
     callbacks.append(FlushStdout())
-    history = model.fit(x, y, validation_data=validation_data, nb_epoch=num_iter, batch_size=batch_size, verbose=2,
-                        shuffle=shuffle, callbacks=callbacks)
-    # print(history.history)
+    shuffle = True if on_memory else 'batch'
+    model.fit(x, y, batch_size=batch_size, nb_epoch=num_iter, validation_data=validation_data, shuffle=shuffle,
+              callbacks=callbacks, verbose=2)
     sys.stdout.flush()
+
     model.load_weights(temp_model.name)
-    if validation_data is not None:
-        loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
-    else:
-        loss, acc = 0.0, 0.0
+    loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
     temp_model.close()
+
     return model, loss, acc
 
 
-def onehot2label(mat):
-    """convert one-hot representation into integer labels"""
-    labels = [numpy.argmax(l) for l in mat]
-    return labels
+# def train_keras(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+#                 num_jobs=1, **model_params):
+#     num_labels = y.shape[1]
+#     feature_size = x.shape[1]
+#     if model_name == 'loglinear':
+#         model = loglinear(feature_size, num_labels, **model_params)
+#     else:
+#         assert (model_name == 'mlp')
+#         model = mlp(feature_size, num_labels, **model_params)
+#     shuffle = True if on_memory else 'batch'
+#     callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
+#     temp_model = tempfile.NamedTemporaryFile()
+#     callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
+#     callbacks.append(FlushStdout())
+#     history = model.fit(x, y, validation_data=validation_data, nb_epoch=num_iter, batch_size=batch_size, verbose=2,
+#                         shuffle=shuffle, callbacks=callbacks)
+#     # print(history.history)
+#     sys.stdout.flush()
+#     model.load_weights(temp_model.name)
+#     if validation_data is not None:
+#         loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
+#     else:
+#         loss, acc = 0.0, 0.0
+#     temp_model.close()
+#     return model, loss, acc
 
 
-def train_sklearn(x, y, model_name, validation_data, num_iter, on_memory=True,
-                  num_jobs=1, l2=0.0001):
-    assert (model_name == 'loglinear')
-    assert (l2 > 0.0)
-    logger.info('l2={}'.format(l2))
-    assert (len(y.shape) == 2)
-    model = OneVsRestClassifier(
-        SGDClassifier(loss='log', penalty='l2', alpha=l2, n_iter=num_iter, verbose=2))  # , n_jobs=num_jobs)
-    # model = LogisticRegression(penalty='l2', C=l2, max_iter=num_iter, multi_class='multinomial', solver='lbfgs', verbose=2)
-    model.fit(x, y)
-    pred_y = model.predict_proba(validation_data[0])
-    val_loss = log_loss(validation_data[1], pred_y)
-    val_acc = accuracy_score(onehot2label(validation_data[1]), onehot2label(pred_y))
-    return model, val_loss, val_acc  # TODO: return val_loss and val_acc
+# def onehot2label(mat):
+#     """convert one-hot representation into integer labels"""
+#     labels = [numpy.argmax(l) for l in mat]
+#     return labels
+#
+#
+# def train_sklearn(x, y, model_name, validation_data, num_iter, on_memory=True,
+#                   num_jobs=1, l2=0.0001):
+#     assert (model_name == 'loglinear')
+#     assert (l2 > 0.0)
+#     logger.info('l2={}'.format(l2))
+#     assert (len(y.shape) == 2)
+#     model = OneVsRestClassifier(
+#         SGDClassifier(loss='log', penalty='l2', alpha=l2, n_iter=num_iter, verbose=2))  # , n_jobs=num_jobs)
+#     # model = LogisticRegression(penalty='l2', C=l2, max_iter=num_iter, multi_class='multinomial', solver='lbfgs', verbose=2)
+#     model.fit(x, y)
+#     pred_y = model.predict_proba(validation_data[0])
+#     val_loss = log_loss(validation_data[1], pred_y)
+#     val_acc = accuracy_score(onehot2label(validation_data[1]), onehot2label(pred_y))
+#     return model, val_loss, val_acc  # TODO: return val_loss and val_acc
 
 
-def generate_params(grid):
-    if grid is None: return [{}]
-    assert (isinstance(grid, dict))
-    keys = grid.keys()
-    values = grid.values()
-    return [dict(zip(keys, params)) for params in itertools.product(*values)]
+# def generate_params(grid):
+#     if grid is None: return [{}]
+#     assert (isinstance(grid, dict))
+#     keys = grid.keys()
+#     values = grid.values()
+#     return [dict(zip(keys, params)) for params in itertools.product(*values)]
 
-
-# def train(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1, num_jobs=1,
-#           framework='keras',
-#           param_grid=None, **model_params):
-def train(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1, hyperopt_params,
-          **model_params):
+def train(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+          hyperopt_params=None, **model_params):
     best_model = None
     best_loss = None
     best_acc = None
-    # best_params = None
-    # logs = []
-    # params_list = generate_params(param_grid)
-    # logger.info('Start training: {} parameter grids'.format(len(params_list)))
-    # for i, params in enumerate(params_list):
-    #     logger.info('Grid {}'.format(i + 1))
-    #     merged_params = dict(model_params, **params)
-    #     if framework == 'keras':
-    #         model, loss, acc = train_keras(x, y, model_name, validation_data, num_iter,
-    #                                        batch_size=batch_size, on_memory=on_memory, early_stopping=early_stopping,
-    #                                        num_jobs=num_jobs,
-    #                                        **merged_params)
-    #     else:
-    #         assert (framework == 'sklearn')
-    #         model, loss, acc = train_sklearn(x, y, model_name, validation_data, num_iter,
-    #                                          on_memory=on_memory, num_jobs=num_jobs,
-    #                                          **merged_params)
-    #     # if best_model is None or acc > best_acc:
-    #     if best_model is None or loss < best_loss:
-    #         best_model, best_loss, best_acc, best_params = model, loss, acc, params
-    #     logs.append(params.values() + [loss, acc])
-    #     logger.info('Grid {} done: loss={}, acc={}'.format(i + 1, loss, acc))
-    # logger.info('Best loss={}, acc={}, model: {}'.format(best_loss, best_acc, best_params))
-    # logger.info('{}\tloss\tacc'.format('\t'.join(params.keys())))
-    # for log in logs:
-    #     logger.info('\t'.join([str(l) for l in log]))
 
-    def keras_fmin_fnct(space):
-        """
+    logger.info('Start training: {} hyperparameters searching'.format(
+        len(hyperopt_params) if hyperopt_params is not None else 0))
+    if hyperopt_params is None:
+        best_model, best_loss, best_acc = train_bow(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size,
+                                                    on_memory, early_stopping, **model_params)
+        best_params = model_params
+        logs = [best_params.values() + [best_loss, best_acc]]
+    else:
+        def keras_fmin_fnct(space):
+            """
+            :param space:
+            :return:
+            """
 
-        :param space:
-        :return:
-        """
-        quest_model = Sequential()
-        quest_model.add(Embedding(input_dim=vocab_size, output_dim=space['WEmbDim'],
-                                  init=space['WEmbInit'],
-                                  mask_zero=False, dropout=space['WEmbDrop']
-                                  )
-                        )
-        quest_model.add(Lambda(function=lambda x: K.sum(x, axis=1), output_shape=lambda shape: (shape[0],) + shape[2:]))
-        quest_model.add(Dense(nb_ans))
-        quest_model.add(Activation('softmax'))
+            if not hasattr(keras_fmin_fnct, "counter"):
+                keras_fmin_fnct.counter = 0
+            keras_fmin_fnct.counter += 1
 
-        quest_model.compile(loss='categorical_crossentropy',
-                            optimizer={{choice(['sgd', 'adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'])}},
-                            metrics=['accuracy'])
+            model, loss, acc = train_bow(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size, on_memory,
+                                         early_stopping, **space)
 
-        print('##################################')
-        print('Train...')
-        callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
-        temp_model = tempfile.NamedTemporaryFile()
-        callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
-        callbacks.append(FlushStdout())
+            logger.info('Searching hyperparameter {} done: loss={}, acc={}'.format(keras_fmin_fnct.counter, loss, acc))
 
-        quest_model.fit(x, y, batch_size=batch_size, nb_epoch=num_iter,
-                        validation_data=validation_data,
-                        callbacks=callbacks)
+            return {'loss': -acc, 'status': STATUS_OK, 'model': model, 'model_loss': loss, 'model_acc': acc}
 
-        score, acc = quest_model.evaluate(validation_data[0], validation_data[1], verbose=1)
+        def get_space():
+            return {
+                'wemb_dim': hp.choice('wemb_dim', hyperopt_params['wembdim']),
+                'wemb_init': hp.choice('wemb_init', hyperopt_params['wembinit']),
+                'wemb_dropout': hp.choice('wemb_dropout', hyperopt_params['wembdropout']),
+                'optimizer': hp.choice('optimizer', hyperopt_params['optimizer']),
+            }
 
-        print('##################################')
-        print('Test accuracy:%.4f' % acc)
+        trials = Trials()
+        best_params = fmin(keras_fmin_fnct, space=get_space(), algo=tpe.suggest,
+                           max_evals=hyperopt_params['maxevals'], trials=trials)
+        logs = []
+        for trial in trials:
+            vals = trial.get('misc').get('vals')
+            for key in vals.keys():
+                vals[key] = vals[key][0]
+            logs.append(vals.values() + [trial.get('result').get('model_loss'),
+                                         trial.get('result').get('model_acc')])
+            if trial.get('misc').get('vals') == best_params and 'model' in trial.get('result').keys():
+                best_model = trial.get('result').get('model')
+                best_loss = trial.get('result').get('model_loss')
+                best_acc = trial.get('result').get('model_acc')
 
-        return {'loss': -acc, 'status': STATUS_OK, 'model': quest_model}
-
-    def get_space():
-        return {
-            'WEmbDim': hp.choice('WEmbDim', hyperopt_params['wembdim']),
-            'WEmbInit': hp.choice('WEmbInit', hyperopt_params['wembinit']),
-            'WEmbDrop': hp.choice('WEmbDrop', hyperopt_params['wembdropout']),
-        }
-
+    logger.info('Best loss={}, acc={}, model: {}'.format(best_loss, best_acc, best_params))
+    logger.info('{}\tloss\tacc'.format('\t'.join(best_params.keys())))
+    for log in logs:
+        logger.info('\t'.join([str(l) for l in log]))
 
     return best_model, best_loss, best_acc
 
@@ -260,7 +252,7 @@ def precision_recall_fscore(correct, pred, gold):
         fscore = 0.0
     else:
         fscore = (2 * precision * recall) / (precision + recall)
-    return (precision, recall, fscore)
+    return precision, recall, fscore
 
 
 def show_accuracy(pred_y, val_y, val_index, vocab):
@@ -275,7 +267,8 @@ def show_accuracy(pred_y, val_y, val_index, vocab):
         logger.debug('  gold: %s', vocab.invget(gold_label))
         total_pred[pred_label] = total_pred.get(pred_label, 0) + 1
         total_gold[gold_label] = total_gold.get(gold_label, 0) + 1
-        if pred_label == gold_label: correct[gold_label] = correct.get(gold_label, 0) + 1
+        if pred_label == gold_label:
+            correct[gold_label] = correct.get(gold_label, 0) + 1
     sorted_items = sorted(total_gold.items(), key=lambda x: x[1], reverse=True)
     logger.info('Results:')
     sum_correct = 0
@@ -293,7 +286,29 @@ def show_accuracy(pred_y, val_y, val_index, vocab):
     logger.info('Total: {}/{}/{} ({}/{}/{})'.format(precision, recall, fscore, sum_correct, sum_pred, sum_gold))
 
 
-def save_model_keras(model, vocab, path):
+# def save_model_keras(model, vocab, path):
+#     if os.path.isdir(path):
+#         os.utime(path, None)
+#     else:
+#         os.makedirs(path)
+#     with open('{}/{}'.format(path, model_filename), 'w') as f:
+#         f.write(model.to_json())
+#     model.save_weights('{}/{}'.format(path, param_filename), overwrite=True)
+#     with open('{}/{}'.format(path, vocab_filename), 'w') as f:
+#         f.write(json.dumps(vocab.to_list()))
+#
+#
+# def save_model_sklearn(model, vocab, path):
+#     if os.path.isdir(path):
+#         os.utime(path, None)
+#     else:
+#         os.makedirs(path)
+#     joblib.dump(model, '{}/{}'.format(path, sklearn_model_filename))
+#     with open('{}/{}'.format(path, vocab_filename), 'w') as f:
+#         f.write(json.dumps(vocab.to_list()))
+
+
+def save_model(model, vocab, path):
     if os.path.isdir(path):
         os.utime(path, None)
     else:
@@ -305,49 +320,35 @@ def save_model_keras(model, vocab, path):
         f.write(json.dumps(vocab.to_list()))
 
 
-def save_model_sklearn(model, vocab, path):
-    if os.path.isdir(path):
-        os.utime(path, None)
-    else:
-        os.makedirs(path)
-    joblib.dump(model, '{}/{}'.format(path, sklearn_model_filename))
-    with open('{}/{}'.format(path, vocab_filename), 'w') as f:
-        f.write(json.dumps(vocab.to_list()))
+# def load_model_keras(path):
+#     with open('{}/{}'.format(path, model_filename)) as f:
+#         model = model_from_json(f.read())
+#     model.compile(loss='categorical_crossentropy',
+#                   metrics=['accuracy'],
+#                   optimizer='adam')
+#     model.load_weights('{}/{}'.format(path, param_filename))
+#     with open('{}/{}'.format(path, vocab_filename)) as f:
+#         vocab = vocabulary.from_list(json.loads(f.read()))
+#     return model, vocab
+#
+#
+# def load_model_sklearn(path):
+#     model = joblib.load('{}/{}'.format(path, sklearn_model_filename))
+#     with open('{}/{}'.format(path, vocab_filename)) as f:
+#         vocab = vocabulary.from_list(json.loads(f.read()))
+#     return model, vocab
 
 
-def save_model(model, vocab, path, framework):
-    if framework == 'keras':
-        save_model_keras(model, vocab, path)
-    else:
-        assert (framework == 'sklearn')
-        save_model_sklearn(model, vocab, path)
-
-
-def load_model_keras(path):
+def load_model(path):
     with open('{}/{}'.format(path, model_filename)) as f:
         model = model_from_json(f.read())
     model.compile(loss='categorical_crossentropy',
                   metrics=['accuracy'],
-                  optimizer='adam')
+                  optimizer='adamax')  # TODO: How to specify the optimizer?
     model.load_weights('{}/{}'.format(path, param_filename))
     with open('{}/{}'.format(path, vocab_filename)) as f:
         vocab = vocabulary.from_list(json.loads(f.read()))
     return model, vocab
-
-
-def load_model_sklearn(path):
-    model = joblib.load('{}/{}'.format(path, sklearn_model_filename))
-    with open('{}/{}'.format(path, vocab_filename)) as f:
-        vocab = vocabulary.from_list(json.loads(f.read()))
-    return model, vocab
-
-
-def load_model(path, framework):
-    if framework == 'keras':
-        return load_model_keras(path)
-    else:
-        assert (framework == 'sklearn')
-        return load_model_sklearn(path)
 
 
 ######################################################################
@@ -394,8 +395,8 @@ def load_data(data_files, on_memory=True):
     if 'index' in x_file:
         index = numpy.array(x_file['index'])
     if y_file is not None:
-        y = load_matrix(y_file, 'data',
-                        True)  # y data is put on memory (should be changed for large vocabulary classification)
+        # y data is put on memory (should be changed for large vocabulary classification)
+        y = load_matrix(y_file, 'data', True)
         if index is None and 'index' in y_file:
             index = numpy.array(y_file['index'])
     else:
@@ -407,10 +408,12 @@ def load_data(data_files, on_memory=True):
 
 def load_vocabulary(data_files, vocab_name):
     if 'xy' in data_files:
-        return vocabulary.from_list(data_files['xy']['y'][vocab_name])
+        return (vocabulary.from_list(data_files['xy']['x'][vocab_name]),
+                vocabulary.from_list(data_files['xy']['y'][vocab_name]))
     else:
         assert ('y' in data_files)
-        return vocabulary.from_list(data_files['y'][vocab_name])
+        return (vocabulary.from_list(data_files['x'][vocab_name]),
+                vocabulary.from_list(data_files['y'][vocab_name]))
 
 
 def check_data_consistency(x, y, vocab):
@@ -425,10 +428,14 @@ def train_mode(args):
     (x, y, index) = load_data(data_files, args.on == 'memory')
     if y is None:
         raise ValueError('y data must be specified for training')
-    vocab = load_vocabulary(data_files, args.y_vocab)
+    # x_vocab (question vocabulary), y_vocab (list of candidate answers)
+    x_vocab, y_vocab = load_vocabulary(data_files, args.vocab_name)
+
     if len(y.shape) == 1:
-        y = label_binarize(y, classes=range(vocab.size()))
-    check_data_consistency(x, y, vocab)
+        y = np_utils.to_categorical(y, y_vocab.size())
+
+    check_data_consistency(x, y, y_vocab)
+
     if args.num_samples > 0:
         (x, y, index) = x[:args.num_samples], y[:args.num_samples], index[:args.num_samples]
     # load validation data
@@ -438,8 +445,8 @@ def train_mode(args):
         (val_x, val_y, val_index) = load_data(val_files, args.on == 'memory')
         assert (val_y is not None)
         if len(val_y.shape) == 1:
-            val_y = label_binarize(val_y, classes=range(vocab.size()))
-        check_data_consistency(val_x, val_y, vocab)
+            val_y = np_utils.to_categorical(val_y, y_vocab.size())
+        check_data_consistency(val_x, val_y, y_vocab)
     if val_x is not None:
         val_data = (val_x, val_y)
     else:
@@ -454,14 +461,11 @@ def train_mode(args):
         logger.info('Keras: Train mode')
     else:
         logger.info('Hyperopt + Keras: Search mode')
-    # model, loss, acc = train(x, y, model_name=args.model, validation_data=val_data, num_iter=args.num_iter,
-    #                          batch_size=args.batch_size, on_memory=(args.on == 'memory'),
-    #                          early_stopping=args.early_stopping, num_jobs=args.num_jobs, framework=args.framework,
-    #                          param_grid=json.loads(args.param_grid), **model_params)
 
-    model, loss, acc = train(x, y, model_name=args.model, validation_data=val_data, num_iter=args.num_iter,
-                             batch_size=args.batch_size, on_memory=(args.on == 'memory'),
-                             early_stopping=args.early_stopping, hyperopt_params=json.loads(args.hyperopt_params), **model_params)
+    model, loss, acc = train(x, y, validation_data=val_data, vocab_size=x_vocab.size(), nb_ans=y_vocab.size(),
+                             num_iter=args.num_iter, batch_size=args.batch_size, on_memory=(args.on == 'memory'),
+                             early_stopping=args.early_stopping, hyperopt_params=json.loads(args.hyperopt_params),
+                             **model_params)
     logger.info('Training time: {}'.format(datetime.now() - training_start))
     logger.info('Loss={}, acc={}'.format(loss, acc))
 
@@ -469,16 +473,8 @@ def train_mode(args):
     if val_data is not None:
         close_data_files(val_files)
 
-    # if len(val_y) > 0:
-    #     logger.info('Validation')
-    #     val_start = datetime.now()
-    #     check_train_data(val_x, val_y)
-    #     score = model.evaluate(val_x, val_y, batch_size=16)
-    #     logger.info('Validation time: {}'.format(datetime.now() - val_start))
-    #     logger.info('Accuracy: {}'.format(score))
-
     logger.info('Save model: %s', args.model_dir)
-    save_model(model, vocab, args.model_dir, args.framework)
+    save_model(model, y_vocab, args.model_dir)
     pass
 
 
@@ -502,30 +498,29 @@ def save_detection_results_hdf5(output_file, pred, index, vocab):
 
 def test_mode(args):
     logger.info('Load model: %s', args.model_dir)
-    model, vocab = load_model(args.model_dir, args.framework)
+    model, y_vocab = load_model(args.model_dir)
 
     logger.info('Load test data')
     data_files = open_data_files(args.data_file, args.x_file, args.y_file)
     (test_x, test_y, index) = load_data(data_files, args.on == 'memory')
     if test_y is None:
-        test_y = numpy.zeros((len(test_x), vocab.size()))
+        test_y = numpy.zeros((len(test_x), y_vocab.size()))
     if len(test_y.shape) == 1:
-        test_y = label_binarize(test_y, classes=range(vocab.size()))
-    logger.info('%s samples, %s labels', len(test_x), vocab.size())
+        test_y = np_utils.to_categorical(test_y, y_vocab.size())
+    logger.info('%s samples, %s labels', len(test_x), y_vocab.size())
 
     logger.info('Start testing')
     val_start = datetime.now()
     check_train_data(test_x, test_y)
-    # pred_y = model.predict_proba(test_x, batch_size=args.batch_size)
     pred_y = model.predict_proba(test_x)
     logger.info('Test time: {}'.format(datetime.now() - val_start))
 
     close_data_files(data_files)
 
-    show_accuracy(pred_y, test_y, index, vocab)
+    show_accuracy(pred_y, test_y, index, y_vocab)
     if args.output_file is not None:
         # save detection results
-        save_detection_results_hdf5(args.output_file, pred_y, index, vocab)
+        save_detection_results_hdf5(args.output_file, pred_y, index, y_vocab)
     pass
 
 
@@ -549,21 +544,11 @@ if __name__ == '__main__':
     argparser.add_argument('-f', '--model_dir', type=str, dest='model_dir', help='directory to store the model')
     argparser.add_argument('-o', '--output_file', type=str, dest='output_file', default=None,
                            help='file to output detection results')
-    # argparser.add_argument('-l', '--log_file', type=str, dest='log_file', default=None, help='file to output log messages')
-    # argparser.add_argument('-m', '--model', type=str, dest='model', default='loglinear', choices=['loglinear', 'mlp'],
-    #                       help='model of classifier')
-    # argparser.add_argument('--framework', type=str, dest='framework', default='keras', choices=['keras', 'sklearn'],
-    #                       help='machine learning framework to be used')
     argparser.add_argument('-i', '--num_iter', type=int, dest='num_iter', default=10,
                            help='number of epochs for training')
-    # argparser.add_argument('-j', '--num_jobs', type=int, dest='num_jobs', default=1, help='number of parallel jobs')
-    # argparser.add_argument('-s', '--split_ratio', type=float, dest='split_ratio', default=0.0,
-    #                       help='ratio of train/val split')
     argparser.add_argument('-n', '--num_samples', type=int, dest='num_samples', default=0,
                            help='number of training samples')
-    argparser.add_argument('--y_vocab', type=str, dest='y_vocab', default='columns', help='vocabulary of y')
-    # argparser.add_argument('-p', '--threshold', type=float, dest='threshold', default=0.5, help='probability threshold to output label')
-    # argparser.add_argument('--num_units', type=int, dest='num_units', default=100, help='Number of units of hidden layer (multilayer perceptron only)')
+    argparser.add_argument('--vocab_name', type=str, dest='vocab_name', default='columns', help='vocabulary of y')
     argparser.add_argument('--batch_size', type=int, dest='batch_size', default=1,
                            help='Batch size for training/testing')
     argparser.add_argument('--on', type=str, dest='on', default='memory', choices=['memory', 'file'],
