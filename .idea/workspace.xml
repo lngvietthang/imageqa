@@ -75,8 +75,8 @@
       <file leaf-file-name="quest2num.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quest2num.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="117" column="67" selection-start-line="117" selection-start-column="67" selection-end-line="117" selection-end-column="67" />
+            <state relative-caret-position="386">
+              <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding>
                 <element signature="e#105#142#0" expanded="true" />
               </folding>
@@ -470,13 +470,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00025" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464283303888</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1464283303888</updated>
-    </task>
     <task id="LOCAL-00026" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464283386250</created>
       <option name="number" value="00026" />
@@ -813,7 +806,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467029506919</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Rewriting">
+      <created>1467029731697</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1467029731697</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1237,8 +1237,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quest2num.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="117" column="67" selection-start-line="117" selection-start-column="67" selection-end-line="117" selection-end-column="67" />
+        <state relative-caret-position="386">
+          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding>
             <element signature="e#105#142#0" expanded="true" />
           </folding>

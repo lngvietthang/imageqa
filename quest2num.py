@@ -115,7 +115,8 @@ if __name__ == '__main__':
         with h5py.File(args.output_file, "w") as output:
             output.create_dataset(args.index_attr, data=np.array(lst_index))
             output.create_dataset(args.data_attr, data=arr_quests)
-            output.create_dataset("columns", data=word_dict.keys())
+            columns = [word.encode('utf8') for word in word_dict.keys()]
+            output.create_dataset("columns", data=columns)
 
         if args.vocab_file is None:
             logger.info("Save vocabulary")
