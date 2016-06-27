@@ -94,6 +94,7 @@ if __name__ == '__main__':
                 lst_index.append(quest_id)
                 quest = preprocess(js[args.ans_attr])
                 lst_ans.append(quest)
+        lst_ans = [['_'.join([word for word in ans])] for ans in lst_ans]  # multiple words in ans
 
         if args.vocab_file is None:
             logger.info("Build vocabulary")
@@ -105,8 +106,8 @@ if __name__ == '__main__':
         logger.info("Convert text to number")
         arr_ans = []
         for ans in lst_ans:
-            if ans in word_dict:
-                arr_ans.append(word_dict[ans])
+            if ans[0] in word_dict:
+                arr_ans.append(word_dict[ans[0]])
             else:
                 arr_ans.append(word_dict['UNK'])
         arr_ans = np.array(arr_ans).reshape(len(arr_ans), 1)

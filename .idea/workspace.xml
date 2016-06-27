@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ans2num.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quest2num.py" afterPath="$PROJECT_DIR$/quest2num.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ans2num.py" afterPath="$PROJECT_DIR$/ans2num.py" />
     </list>
     <ignored path="imageqa.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,8 +87,8 @@
       <file leaf-file-name="ans2num.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ans2num.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="113" column="65" selection-start-line="113" selection-start-column="65" selection-end-line="113" selection-end-column="65" />
+            <state relative-caret-position="405">
+              <caret line="111" column="48" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
               <folding>
                 <element signature="e#76#113#0" expanded="true" />
               </folding>
@@ -110,8 +109,8 @@
       <file leaf-file-name="prepare-data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/prepare-data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="71" column="38" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="38" />
+            <state relative-caret-position="247">
+              <caret line="67" column="32" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -484,13 +483,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00027" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464283463126</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1464283463126</updated>
-    </task>
     <task id="LOCAL-00028" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464283557527</created>
       <option name="number" value="00028" />
@@ -827,7 +819,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467029809508</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Rewriting">
+      <created>1467031206834</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1467031206834</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1224,16 +1223,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/prepare-data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="71" column="38" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conv-result.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1252,10 +1241,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/prepare-data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="67" column="32" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ans2num.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="113" column="65" selection-start-line="113" selection-start-column="65" selection-end-line="113" selection-end-column="65" />
+        <state relative-caret-position="405">
+          <caret line="111" column="48" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
           <folding>
             <element signature="e#76#113#0" expanded="true" />
           </folding>
