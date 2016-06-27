@@ -15,6 +15,7 @@ from nltk.stem import WordNetLemmatizer
 
 import numpy as np
 
+from ast import literal_eval
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +77,7 @@ if __name__ == '__main__':
         argparser.add_argument("--max_len", type=int, default=30,
                                help="maximum length of a question")
         argparser.add_argument("--quest_attr", type=str, default='question', help="attribute name for questions in input JSONL")
-        argparser.add_argument("--qid_attr", type=str, default='id', help="attribute name for question ID in input JSONL")
+        argparser.add_argument("--qid_attr", type=str, default='question_id', help="attribute name for question ID in input JSONL")
         argparser.add_argument("--data_attr", type=str, default='data',
                                help="attribute to store list of numbers in output HDF5")
         argparser.add_argument("--index_attr", type=str, default='index',
@@ -116,7 +117,7 @@ if __name__ == '__main__':
         with h5py.File(args.output_file, "w") as output:
             output.create_dataset(args.index_attr, data=np.array(lst_index))
             output.create_dataset(args.data_attr, data=arr_quests)
-            output.create_dataset("columns", data=np.array(word_dict.keys()))
+            output.create_dataset("columns", data=np.array(literal_eval(word_dict.keys())))
 
         if args.vocab_file is None:
             logger.info("Save vocabulary")

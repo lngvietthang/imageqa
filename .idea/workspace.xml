@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/quest2num.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quest2num.py" afterPath="$PROJECT_DIR$/quest2num.py" />
     </list>
     <ignored path="imageqa.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,8 +75,8 @@
       <file leaf-file-name="quest2num.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quest2num.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="66" column="26" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+            <state relative-caret-position="367">
+              <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
               <folding>
                 <element signature="e#105#142#0" expanded="true" />
               </folding>
@@ -460,13 +460,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00023" summary="New: cnn-bow-hyperas.py -&gt; Hyperas parameter">
-      <created>1464282809355</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1464282809355</updated>
-    </task>
     <task id="LOCAL-00024" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464283121476</created>
       <option name="number" value="00024" />
@@ -803,7 +796,14 @@
       <option name="project" value="LOCAL" />
       <updated>1466510346277</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Rewriting">
+      <created>1467029015065</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1467029015065</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1226,8 +1226,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quest2num.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="66" column="26" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+        <state relative-caret-position="367">
+          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
           <folding>
             <element signature="e#105#142#0" expanded="true" />
           </folding>
