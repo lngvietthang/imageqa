@@ -1,5 +1,5 @@
 # coding: utf-8
-"""convert input question into numerical representations (for Keras Embedding layer)"""
+"""convert input answers into numerical representations"""
 
 from __future__ import print_function
 import argparse
@@ -27,7 +27,7 @@ def preprocess(line, is_lmz=False):
     return line
 
 
-def build_dict(lst_txt):
+def build_dict(lst_txt, padding=True):
     word_freqs = OrderedDict()
     for line in lst_txt:
         #        words_in = line.strip().split(' ')
@@ -43,10 +43,13 @@ def build_dict(lst_txt):
     sorted_words = [words[ii] for ii in sorted_idx[::-1]]
 
     word_dict = OrderedDict()
-    word_dict['padding'] = 0
-    word_dict['UNK'] = 1
+    key_start = 0
+    if padding:
+        key_start = 1
+        word_dict['padding'] = 0
+    word_dict['UNK'] = key_start
     for ii, ww in enumerate(sorted_words):
-        word_dict[ww] = ii + 2
+        word_dict[ww] = ii + 1 + key_start
 
     return word_dict
 
@@ -67,14 +70,12 @@ if __name__ == '__main__':
     if __name__ == '__main__':
         logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s: %(message)s')
 
-        argparser = argparse.ArgumentParser(description="Make numerical representations of questions")
-        argparser.add_argument("question_file", type=str, help="JSONL file of texts")
+        argparser = argparse.ArgumentParser(description="Make numerical representations of answers")
+        argparser.add_argument("answer_file", type=str, help="JSONL file of texts")
         argparser.add_argument("output_file", type=str, help="hdf5 file to output matrix")
         argparser.add_argument("--vocab_file", type=str,
                                help="vocabulary file")
-        argparser.add_argument("--max_len", type=int, default=30,
-                               help="maximum length of a question")
-        argparser.add_argument("--quest_attr", type=str, default='question', help="attribute name for questions in input JSONL")
+        argparser.add_argument("--ans_attr", type=str, default='answer', help="attribute name for answer in input JSONL")
         argparser.add_argument("--qid_attr", type=str, default='question_id', help="attribute name for question ID in input JSONL")
         argparser.add_argument("--data_attr", type=str, default='data',
                                help="attribute to store list of numbers in output HDF5")
@@ -85,37 +86,35 @@ if __name__ == '__main__':
 
         logger.info("Read texts and compute text vectors")
         lst_index = []
-        lst_quests = []
-        with open(args.question_file) as input:
+        lst_ans = []
+        with open(args.answer_file) as input:
             for line in input:
                 js = json.loads(line)
                 quest_id = js[args.qid_attr]
                 lst_index.append(quest_id)
-                quest = preprocess(js[args.quest_attr])
-                lst_quests.append(quest)
+                quest = preprocess(js[args.ans_attr])
+                lst_ans.append(quest)
 
         if args.vocab_file is None:
             logger.info("Build vocabulary")
-            word_dict = build_dict(lst_quests)
+            word_dict = build_dict(lst_ans, padding=False)
         else:
             logger.info("Load vocabulary")
             word_dict = load_dict(args.vocab_file)
 
         logger.info("Convert text to number")
-        nb_ins = len(lst_quests)
-        max_len = args.max_len
-        arr_quests = np.zeros((nb_ins, max_len), dtype=int)
-        for i in range(nb_ins):
-            for j in range(min(max_len, len(lst_quests[i]))):
-                if lst_quests[i][j] in word_dict:
-                    arr_quests[i, j] = word_dict[lst_quests[i][j]]
-                else:
-                    arr_quests[i, j] = word_dict['UNK']
+        arr_ans = []
+        for ans in lst_ans:
+            if ans in word_dict:
+                arr_ans.append(word_dict[ans])
+            else:
+                arr_ans.append(word_dict['UNK'])
+        arr_ans = np.array(arr_ans).reshape(len(arr_ans), 1)
 
-        logger.info("Output numerical representations of question")
+        logger.info("Output numerical representations of answer")
         with h5py.File(args.output_file, "w") as output:
             output.create_dataset(args.index_attr, data=np.array(lst_index))
-            output.create_dataset(args.data_attr, data=arr_quests)
+            output.create_dataset(args.data_attr, data=arr_ans)
             columns = [word.encode('utf8') for word in word_dict.keys()]
             output.create_dataset("columns", data=columns)
 
