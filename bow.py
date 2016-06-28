@@ -431,7 +431,7 @@ def train_mode(args):
     # x_vocab (question vocabulary), y_vocab (list of candidate answers)
     x_vocab, y_vocab = load_vocabulary(data_files, args.vocab_name)
 
-    if len(y.shape) == 1:
+    if y.shape[1] == 1:
         y = np_utils.to_categorical(y, y_vocab.size())
 
     check_data_consistency(x, y, y_vocab)
@@ -444,7 +444,7 @@ def train_mode(args):
         val_files = open_data_files(args.val_file, args.val_x_file, args.val_y_file)
         (val_x, val_y, val_index) = load_data(val_files, args.on == 'memory')
         assert (val_y is not None)
-        if len(val_y.shape) == 1:
+        if val_y.shape[1] == 1:
             val_y = np_utils.to_categorical(val_y, y_vocab.size())
         check_data_consistency(val_x, val_y, y_vocab)
     if val_x is not None:
@@ -505,7 +505,7 @@ def test_mode(args):
     (test_x, test_y, index) = load_data(data_files, args.on == 'memory')
     if test_y is None:
         test_y = numpy.zeros((len(test_x), y_vocab.size()))
-    if len(test_y.shape) == 1:
+    if test_y.shape[1] == 1:
         test_y = np_utils.to_categorical(test_y, y_vocab.size())
     logger.info('%s samples, %s labels', len(test_x), y_vocab.size())
 
