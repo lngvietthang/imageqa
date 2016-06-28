@@ -49,8 +49,8 @@
       <file leaf-file-name="bow.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-402">
-              <caret line="507" column="7" selection-start-line="507" selection-start-column="7" selection-end-line="507" selection-end-column="7" />
+            <state relative-caret-position="306">
+              <caret line="457" column="34" selection-start-line="457" selection-start-column="34" selection-end-line="457" selection-end-column="34" />
               <folding>
                 <element signature="e#61#98#0" expanded="true" />
                 <element signature="e#4189#4300#0" expanded="false" />
@@ -478,13 +478,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00030" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464315485688</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1464315485688</updated>
-    </task>
     <task id="LOCAL-00031" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464316291268</created>
       <option name="number" value="00031" />
@@ -821,7 +814,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467106307724</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Rewriting">
+      <created>1467106915893</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1467106915893</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1245,8 +1245,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-402">
-          <caret line="507" column="7" selection-start-line="507" selection-start-column="7" selection-end-line="507" selection-end-column="7" />
+        <state relative-caret-position="306">
+          <caret line="457" column="34" selection-start-line="457" selection-start-column="34" selection-end-line="457" selection-end-column="34" />
           <folding>
             <element signature="e#61#98#0" expanded="true" />
             <element signature="e#4189#4300#0" expanded="false" />

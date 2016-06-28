@@ -452,9 +452,10 @@ def train_mode(args):
     else:
         val_data = None
 
-    logger.info('%s samples, %s labels, %s features', x.shape[0], y.shape[1], x.shape[1])
+    logger.info('%s samples, %s labels, %s words', x.shape[0], y.shape[1], x.shape[1])
     check_train_data(x, y)
-    logger.info('Start training: %s', args.model)
+    #logger.info('Start training: %s', args.model)
+    logger.info('Start training:')
     training_start = datetime.now()
     model_params = dict([]) if args.model_params is None else json.loads(args.model_params)
     if args.hyperopt_params is None:
