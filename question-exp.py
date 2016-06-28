@@ -184,7 +184,7 @@ exp = Workflow()
 make_exp_dir(exp)
 build_question_numerical(exp)
 build_answer_numerical(exp)
-#train_and_eval(exp)
+train_and_eval(exp)
 
 exp.set_options(environments_distributed=[{'THEANO_FLAGS': 'device=gpu{}'.format(i)} for i in range(exp.num_jobs)])
 
