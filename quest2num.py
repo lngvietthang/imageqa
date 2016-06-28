@@ -121,7 +121,7 @@ if __name__ == '__main__':
 
         if args.vocab_file is None:
             logger.info("Save vocabulary")
-            path = os.path.join(os.path.dirname(args.output_file), os.path.splitext(args.output_file)[0] + '.dict')
+            path = os.path.join(os.path.splitext(args.output_file)[0] + '.dict')
             save_dict(path, word_dict)
 
         logger.info("done")
