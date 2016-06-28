@@ -59,7 +59,7 @@ train_methods = {
         "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
             {'wembdim': [100, 200, 300, 500],
              'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'wemb_dropout': [0.0, 0.1, 0.3, 0.5],
+             'wembdropout': [0.0, 0.1, 0.3, 0.5],
              'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax']})),
         "test_args": "--batch_size 100"
     },
