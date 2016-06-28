@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="Rewriting">
+    <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/question-exp.py" afterPath="$PROJECT_DIR$/question-exp.py" />
     </list>
@@ -65,11 +65,11 @@
       <file leaf-file-name="question-exp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/question-exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+            <state relative-caret-position="491">
+              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding>
                 <element signature="e#71#126#0" expanded="true" />
-                <element signature="e#1888#2002#0" expanded="false" />
+                <element signature="e#1917#2031#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -478,13 +478,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00033" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464319839356</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1464319839356</updated>
-    </task>
     <task id="LOCAL-00034" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464319946778</created>
       <option name="number" value="00034" />
@@ -821,7 +814,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467107139203</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Rewriting">
+      <created>1467107325333</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1467107325333</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1248,11 +1248,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/question-exp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+        <state relative-caret-position="491">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding>
             <element signature="e#71#126#0" expanded="true" />
-            <element signature="e#1888#2002#0" expanded="false" />
+            <element signature="e#1917#2031#0" expanded="false" />
           </folding>
         </state>
       </provider>

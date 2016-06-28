@@ -60,7 +60,8 @@ train_methods = {
             {'wembdim': [100, 200, 300, 500],
              'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
              'wembdropout': [0.0, 0.1, 0.3, 0.5],
-             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax']})),
+             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+             'maxevals': 15})),
         "test_args": "--batch_size 100"
     },
 }
