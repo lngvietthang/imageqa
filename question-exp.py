@@ -4,9 +4,8 @@
 from __future__ import print_function, unicode_literals
 import sys
 import logging
-import itertools
 import json
-from runexp import Workflow
+from ..imageqa.runexp import Workflow
 
 logger = logging.getLogger(__name__)
 
