@@ -54,16 +54,16 @@ dataset_specs = {
 }
 
 train_methods = {
-    "bow": {
-        "model": "bow",
-        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
-            {'wembdim': [100, 200, 300, 500],
-             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'wembdropout': [0.0, 0.1, 0.3, 0.5],
-             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
-             'maxevals': 10})),
-        "test_args": "--batch_size 100"
-    },
+    # "bow": {
+    #     "model": "bow",
+    #     "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+    #         {'wembdim': [100, 200, 300, 500],
+    #          'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'wembdropout': [0.0, 0.1, 0.3, 0.5],
+    #          'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+    #          'maxevals': 10})),
+    #     "test_args": "--batch_size 100"
+    # },
     "lstm": {
         "model": "lstm",
         "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
@@ -81,37 +81,37 @@ train_methods = {
              'maxevals': 10})),
         "test_args": "--batch_size 100"
     },
-    "gru": {
-        "model": "gru",
-        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
-            {'wembdim': [100, 200, 300, 500],
-             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'wembdropout': [0.0, 0.1, 0.3, 0.5],
-             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
-             'grudim': [200, 300, 400, 500, 1000],
-             'gruinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'gruinner_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'gruact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
-             'gruinner_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
-             'gruwdropout': [0.0, 0.1, 0.3, 0.5],
-             'gruudropout': [0.0, 0.1, 0.3, 0.5],
-             'maxevals': 10})),
-        "test_args": "--batch_size 100"
-    },
-    "cnn": {
-        "model": "cnn",
-        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
-            {'wembdim': [100, 200, 300, 500],
-             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'wembdropout': [0.0, 0.1, 0.3, 0.5],
-             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
-             'nbfilter': [100, 200, 300],
-             'cnn_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'cnn_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
-             'cnn_border': ['valid', 'same'],
-             'maxevals': 15})),
-        "test_args": "--batch_size 100"
-    }
+    # "gru": {
+    #     "model": "gru",
+    #     "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+    #         {'wembdim': [100, 200, 300, 500],
+    #          'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'wembdropout': [0.0, 0.1, 0.3, 0.5],
+    #          'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+    #          'grudim': [200, 300, 400, 500, 1000],
+    #          'gruinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'gruinner_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'gruact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+    #          'gruinner_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+    #          'gruwdropout': [0.0, 0.1, 0.3, 0.5],
+    #          'gruudropout': [0.0, 0.1, 0.3, 0.5],
+    #          'maxevals': 10})),
+    #     "test_args": "--batch_size 100"
+    # },
+    # "cnn": {
+    #     "model": "cnn",
+    #     "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+    #         {'wembdim': [100, 200, 300, 500],
+    #          'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'wembdropout': [0.0, 0.1, 0.3, 0.5],
+    #          'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+    #          'nbfilter': [100, 200, 300],
+    #          'cnn_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'cnn_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+    #          'cnn_border': ['valid', 'same'],
+    #          'maxevals': 15})),
+    #     "test_args": "--batch_size 100"
+    # }
 }
 
 
