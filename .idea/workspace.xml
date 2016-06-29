@@ -48,11 +48,11 @@
       <file leaf-file-name="question-exp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/question-exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="189" column="71" selection-start-line="189" selection-start-column="71" selection-end-line="189" selection-end-column="71" />
+            <state relative-caret-position="114">
+              <caret line="78" column="52" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="52" />
               <folding>
                 <element signature="e#71#126#0" expanded="true" />
-                <element signature="e#4890#5004#0" expanded="false" />
+                <element signature="e#4896#5010#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -451,13 +451,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00037" summary="New: cnn-bow.py">
-      <created>1464347180358</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1464347180359</updated>
-    </task>
     <task id="LOCAL-00038" summary="Update: lstm.py">
       <created>1464512097266</created>
       <option name="number" value="00038" />
@@ -794,7 +787,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467196223898</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Rewriting">
+      <created>1467196404015</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1467196404016</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1226,11 +1226,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/question-exp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="189" column="71" selection-start-line="189" selection-start-column="71" selection-end-line="189" selection-end-column="71" />
+        <state relative-caret-position="114">
+          <caret line="78" column="52" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="52" />
           <folding>
             <element signature="e#71#126#0" expanded="true" />
-            <element signature="e#4890#5004#0" expanded="false" />
+            <element signature="e#4896#5010#0" expanded="false" />
           </folding>
         </state>
       </provider>

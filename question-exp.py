@@ -64,23 +64,23 @@ train_methods = {
     #          'maxevals': 10})),
     #     "test_args": "--batch_size 100"
     # },
-    "lstm": {
-        "model": "lstm",
-        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
-            {'wembdim': [100, 200, 300, 500],
-             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'wembdropout': [0.0, 0.1, 0.3, 0.5],
-             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
-             'lstmdim': [200, 300, 400, 500, 1000],
-             'lstminit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'lstminnerinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-             'lstmact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
-             'lstminneract': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
-             'lstmwdropout': [0.0, 0.1, 0.3, 0.5],
-             'lstmudropout': [0.0, 0.1, 0.3, 0.5],
-             'maxevals': 10})),
-        "test_args": "--batch_size 100"
-    },
+    # "lstm": {
+    #     "model": "lstm",
+    #     "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+    #         {'wembdim': [100, 200, 300, 500],
+    #          'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'wembdropout': [0.0, 0.1, 0.3, 0.5],
+    #          'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+    #          'lstmdim': [200, 300, 400, 500, 1000],
+    #          'lstminit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'lstminnerinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+    #          'lstmact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+    #          'lstminneract': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+    #          'lstmwdropout': [0.0, 0.1, 0.3, 0.5],
+    #          'lstmudropout': [0.0, 0.1, 0.3, 0.5],
+    #          'maxevals': 10})),
+    #     "test_args": "--batch_size 100"
+    # },
     # "gru": {
     #     "model": "gru",
     #     "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
@@ -98,20 +98,20 @@ train_methods = {
     #          'maxevals': 10})),
     #     "test_args": "--batch_size 100"
     # },
-    # "cnn": {
-    #     "model": "cnn",
-    #     "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
-    #         {'wembdim': [100, 200, 300, 500],
-    #          'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-    #          'wembdropout': [0.0, 0.1, 0.3, 0.5],
-    #          'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
-    #          'nbfilter': [100, 200, 300],
-    #          'cnninit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
-    #          'cnnact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
-    #          'cnnborder': ['valid', 'same'],
-    #          'maxevals': 15})),
-    #     "test_args": "--batch_size 100"
-    # }
+    "cnn": {
+        "model": "cnn",
+        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+            {'wembdim': [100, 200, 300, 500],
+             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'wembdropout': [0.0, 0.1, 0.3, 0.5],
+             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+             'nbfilter': [100, 200, 300],
+             'cnninit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'cnnact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+             'cnnborder': ['valid', 'same'],
+             'maxevals': 15})),
+        "test_args": "--batch_size 100"
+    }
 }
 
 
