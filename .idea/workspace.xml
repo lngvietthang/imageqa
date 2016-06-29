@@ -27,7 +27,7 @@
       <file leaf-file-name="question-based-model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/question-based-model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
+            <state relative-caret-position="-9322">
               <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
                 <element signature="e#61#98#0" expanded="true" />
@@ -48,8 +48,8 @@
       <file leaf-file-name="question-exp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/question-exp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="110" column="19" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
+            <state relative-caret-position="171">
+              <caret line="189" column="71" selection-start-line="189" selection-start-column="71" selection-end-line="189" selection-end-column="71" />
               <folding>
                 <element signature="e#71#126#0" expanded="true" />
                 <element signature="e#4890#5004#0" expanded="false" />
@@ -451,13 +451,6 @@
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
     </task>
-    <task id="LOCAL-00036" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464334461769</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1464334461769</updated>
-    </task>
     <task id="LOCAL-00037" summary="New: cnn-bow.py">
       <created>1464347180358</created>
       <option name="number" value="00037" />
@@ -794,7 +787,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467196097964</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="Rewriting">
+      <created>1467196223898</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1467196223898</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1207,7 +1207,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/question-based-model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
+        <state relative-caret-position="-9322">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
             <element signature="e#61#98#0" expanded="true" />
@@ -1226,8 +1226,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/question-exp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="110" column="19" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
+        <state relative-caret-position="171">
+          <caret line="189" column="71" selection-start-line="189" selection-start-column="71" selection-end-line="189" selection-end-column="71" />
           <folding>
             <element signature="e#71#126#0" expanded="true" />
             <element signature="e#4890#5004#0" expanded="false" />

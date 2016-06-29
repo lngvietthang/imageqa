@@ -202,7 +202,7 @@ def train_and_eval(task):
                 test_eval = '{}/{}_val_evalresult-{}_maxlen{}.txt'.format(exp_root, dataset, train_method, max_len)
                 # train and validation
                 train_params = train_methods[train_method]['train_args']
-                task(name='train {}: {}_{}'.format(train_method, dataset, max_len),
+                task(name='train {}: {}_maxlen{}'.format(train_method, dataset, max_len),
                      source=[train_x, train_y, val_x, val_y],
                      target=model_file,
                      rule='python question-based-model.py train -m {} -x {} -y {} -f {} --val_x {} --val_y {} {}'.format(
