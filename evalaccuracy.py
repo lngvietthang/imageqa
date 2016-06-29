@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 def load_gold_answers(filename):
     with open(filename) as f:
-        return { e['question_id']: e['answers'] for e in [json.loads(line) for line in f] }
+        return { e['question_id']: e['answer'] for e in [json.loads(line) for line in f] }
 
 def load_answers_jsonl(filename):
     with open(filename) as f:
