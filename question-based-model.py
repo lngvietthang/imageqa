@@ -18,54 +18,29 @@ import tempfile
 import vocabulary
 import csrmatrix
 
-from keras.models import Sequential
+from keras.models import Sequential, Model
+from keras.layers import merge
 from keras.layers.embeddings import Embedding
 from keras.layers.core import Lambda, Dense, Activation
+from keras.layers.recurrent import LSTM, GRU
+from keras.layers.convolutional import Convolution1D
 import keras.backend as K
 from keras.utils import np_utils
 from keras.models import model_from_json
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
 
+from keras.layers import Input
+
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 
 logger = logging.getLogger(__name__)
 
-model_filename = 'bow.json'
-param_filename = 'bow_param.h5'
+model_filename = 'model.json'
+param_filename = 'model_param.h5'
 vocab_filename = 'ans_vocab.json'
 
 
 ######################################################################
-
-# def mlp(input_size, output_size, num_units=1024, activation='relu', dropout=0.5, l2=0.0, optimizer='adam'):
-#     logger.info(
-#         'num_units={}, activation={}, dropout={}, l2={}, optimizer={}'.format(num_units, activation, dropout, l2,
-#                                                                               optimizer))
-#     reg_l2 = regularizers.l2(l2) if l2 > 0.0 else None
-#     model = Sequential()
-#     model.add(Dense(num_units, input_dim=input_size, activation=activation, W_regularizer=reg_l2))
-#     # model.add(BatchNormalization(input_shape=(input_size,), mode=0))
-#     # model.add(Dense(num_units, activation=activation, W_regularizer=reg_l2))
-#     if dropout > 0.0: model.add(Dropout(dropout))
-#     # model.add(Dense(512, activation='relu'))
-#     # model.add(Dropout(0.5))
-#     model.add(Dense(output_size, activation='softmax', W_regularizer=reg_l2))
-#     model.compile(loss='categorical_crossentropy',
-#                   metrics=['accuracy'],
-#                   optimizer=optimizer)
-#     return model
-#
-#
-# def loglinear(input_size, output_size, l2=0.0, optimizer='adam'):
-#     logger.info('l2={}, optimizer={}'.format(l2, optimizer))
-#     reg_l2 = regularizers.l2(l2) if l2 > 0.0 else None
-#     model = Sequential()
-#     model.add(Dense(output_size, input_dim=input_size, activation='softmax', W_regularizer=reg_l2))
-#     model.compile(loss='categorical_crossentropy',
-#                   metrics=['accuracy'],
-#                   optimizer=optimizer)
-#     return model
-
 
 # callback to flush stdout - in order to see log messages timely
 class FlushStdout(Callback):
@@ -107,63 +82,131 @@ def train_bow(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1,
     return model, loss, acc
 
 
-# def train_keras(x, y, model_name, validation_data, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
-#                 num_jobs=1, **model_params):
-#     num_labels = y.shape[1]
-#     feature_size = x.shape[1]
-#     if model_name == 'loglinear':
-#         model = loglinear(feature_size, num_labels, **model_params)
-#     else:
-#         assert (model_name == 'mlp')
-#         model = mlp(feature_size, num_labels, **model_params)
-#     shuffle = True if on_memory else 'batch'
-#     callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
-#     temp_model = tempfile.NamedTemporaryFile()
-#     callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
-#     callbacks.append(FlushStdout())
-#     history = model.fit(x, y, validation_data=validation_data, nb_epoch=num_iter, batch_size=batch_size, verbose=2,
-#                         shuffle=shuffle, callbacks=callbacks)
-#     # print(history.history)
-#     sys.stdout.flush()
-#     model.load_weights(temp_model.name)
-#     if validation_data is not None:
-#         loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
-#     else:
-#         loss, acc = 0.0, 0.0
-#     temp_model.close()
-#     return model, loss, acc
+def train_lstm(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+               wemb_dim=200, wemb_init='glorot_uniform', wemb_dropout=0.2,
+               lstm_dim=300, lstm_init='glorot_uniform', lstm_inner_init='orthogonal', lstm_act='tanh',
+               lstm_inner_act='hard_sigmoid', lstm_wdropout=0.2, lstm_udropout=0.2,
+               optimizer='adamax'):
+
+    model = Sequential()
+    model.add(Embedding(input_dim=vocab_size, output_dim=wemb_dim,
+                        init=wemb_init, mask_zero=True, dropout=wemb_dropout))
+    model.add(LSTM(output_dim=lstm_dim, init=lstm_init, inner_init=lstm_inner_init, activation=lstm_act,
+                   inner_activation=lstm_inner_act, dropout_W=lstm_wdropout, dropout_U=lstm_udropout,
+                   return_sequences=False))
+    model.add(Dense(nb_ans))
+    model.add(Activation('softmax'))
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=optimizer,
+                  metrics=['accuracy'])
+
+    callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
+    temp_model = tempfile.NamedTemporaryFile()
+    callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
+    callbacks.append(FlushStdout())
+    shuffle = True if on_memory else 'batch'
+    model.fit(x, y, batch_size=batch_size, nb_epoch=num_iter, validation_data=validation_data, shuffle=shuffle,
+              callbacks=callbacks, verbose=2)
+    sys.stdout.flush()
+
+    model.load_weights(temp_model.name)
+    loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
+    temp_model.close()
+
+    return model, loss, acc
+
+def train_gru(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+              wemb_dim=200, wemb_init='glorot_uniform', wemb_dropout=0.2,
+              gru_dim=300, gru_init='glorot_uniform', gru_inner_init='orthogonal', gru_act='tanh',
+              gru_inner_act='hard_sigmoid', gru_wdropout=0.2, gru_udropout=0.2,
+              optimizer='adamax'):
+
+    model = Sequential()
+    model.add(Embedding(input_dim=vocab_size, output_dim=wemb_dim,
+                        init=wemb_init, mask_zero=True, dropout=wemb_dropout))
+    model.add(GRU(output_dim=gru_dim, init=gru_init, inner_init=gru_inner_init, activation=gru_act,
+                  inner_activation=gru_inner_act, dropout_W=gru_wdropout, dropout_U=gru_udropout,
+                  return_sequences=False))
+    model.add(Dense(nb_ans))
+    model.add(Activation('softmax'))
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=optimizer,
+                  metrics=['accuracy'])
+
+    callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
+    temp_model = tempfile.NamedTemporaryFile()
+    callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
+    callbacks.append(FlushStdout())
+    shuffle = True if on_memory else 'batch'
+    model.fit(x, y, batch_size=batch_size, nb_epoch=num_iter, validation_data=validation_data, shuffle=shuffle,
+              callbacks=callbacks, verbose=2)
+    sys.stdout.flush()
+
+    model.load_weights(temp_model.name)
+    loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
+    temp_model.close()
+
+    return model, loss, acc
 
 
-# def onehot2label(mat):
-#     """convert one-hot representation into integer labels"""
-#     labels = [numpy.argmax(l) for l in mat]
-#     return labels
-#
-#
-# def train_sklearn(x, y, model_name, validation_data, num_iter, on_memory=True,
-#                   num_jobs=1, l2=0.0001):
-#     assert (model_name == 'loglinear')
-#     assert (l2 > 0.0)
-#     logger.info('l2={}'.format(l2))
-#     assert (len(y.shape) == 2)
-#     model = OneVsRestClassifier(
-#         SGDClassifier(loss='log', penalty='l2', alpha=l2, n_iter=num_iter, verbose=2))  # , n_jobs=num_jobs)
-#     # model = LogisticRegression(penalty='l2', C=l2, max_iter=num_iter, multi_class='multinomial', solver='lbfgs', verbose=2)
-#     model.fit(x, y)
-#     pred_y = model.predict_proba(validation_data[0])
-#     val_loss = log_loss(validation_data[1], pred_y)
-#     val_acc = accuracy_score(onehot2label(validation_data[1]), onehot2label(pred_y))
-#     return model, val_loss, val_acc  # TODO: return val_loss and val_acc
+def train_cnn(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+              wemb_dim=200, wemb_init='glorot_uniform', wemb_dropout=0.2,
+              cnn_nbfilter=[300, 200, 100], cnn_init='orthogonal', cnn_act='relu', cnn_border='valid',
+              optimizer='adamax'):
+
+    input_x = Input(shape=(x.shape[1],))
+
+    wordembediing = Embedding(input_dim=vocab_size, output_dim=wemb_dim,
+                              init=wemb_init, mask_zero=False, dropout=wemb_dropout)(input_x)
+
+    unigram_cnn = Convolution1D(nb_filter=cnn_nbfilter[0], filter_length=1,
+                                init=cnn_init, activation=cnn_act,
+                                border_mode=cnn_border)(wordembediing)
+    maxpooling_unigram_cnn = Lambda(function=lambda x: K.max(x, axis=1),
+                                    output_shape=lambda shape: (shape[0],) + shape[2:])(unigram_cnn)
+
+    bigram_cnn = Convolution1D(nb_filter=cnn_nbfilter[1], filter_length=2,
+                               init=cnn_init, activation=cnn_act,
+                               border_mode=cnn_border)(wordembediing)
+    maxpooling_bigram_cnn = Lambda(function=lambda x: K.max(x, axis=1),
+                                   output_shape=lambda shape: (shape[0],) + shape[2:])(bigram_cnn)
+
+    trigram_cnn = Convolution1D(nb_filter=cnn_nbfilter[2], filter_length=3,
+                                init=cnn_init, activation=cnn_act,
+                                border_mode=cnn_border)(wordembediing)
+    maxpooling_trigram_cnn = Lambda(function=lambda x: K.max(x, axis=1),
+                                    output_shape=lambda shape: (shape[0],) + shape[2:])(trigram_cnn)
+
+    merge_3cnn = merge([maxpooling_unigram_cnn, maxpooling_bigram_cnn, maxpooling_trigram_cnn],
+                       mode='concat', concat_axis=1)
+
+    predictions = Dense(nb_ans, activation='softmax')(merge_3cnn)
+
+    model = Model(input=input_x, output=predictions)
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=optimizer,
+                  metrics=['accuracy'])
+
+    callbacks = [EarlyStopping(monitor='val_loss', patience=early_stopping)] if early_stopping >= 0 else []
+    temp_model = tempfile.NamedTemporaryFile()
+    callbacks.append(ModelCheckpoint(filepath=temp_model.name, save_best_only=True))
+    callbacks.append(FlushStdout())
+    shuffle = True if on_memory else 'batch'
+    model.fit(x, y, batch_size=batch_size, nb_epoch=num_iter, validation_data=validation_data, shuffle=shuffle,
+              callbacks=callbacks, verbose=2)
+    sys.stdout.flush()
+
+    model.load_weights(temp_model.name)
+    loss, acc = model.evaluate(validation_data[0], validation_data[1], batch_size=batch_size)
+    temp_model.close()
+
+    return model, loss, acc
 
 
-# def generate_params(grid):
-#     if grid is None: return [{}]
-#     assert (isinstance(grid, dict))
-#     keys = grid.keys()
-#     values = grid.values()
-#     return [dict(zip(keys, params)) for params in itertools.product(*values)]
-
-def train(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
+def train(x, y, model_name, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_memory=True, early_stopping=-1,
           hyperopt_params=None, **model_params):
     best_model = None
     best_loss = None
@@ -171,23 +214,72 @@ def train(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_
 
     logger.info('Start training: {} hyperparameters searching'.format(
         len(hyperopt_params) if hyperopt_params is not None else 0))
+
+    if model_name == 'bow':
+        train_func = train_bow
+
+        def get_bow_space():
+            return {}
+        get_space_func = get_bow_space
+    elif model_name == 'lstm':
+        train_func = train_lstm
+
+        def get_lstm_space():
+            return {
+                'lstm_dim': hp.choice('lstm_dim', hyperopt_params['lstmdim']),
+                'lstm_init': hp.choice('lstm_init', hyperopt_params['lstminit']),
+                'lstm_inner_init': hp.choice('lstm_inner_init', hyperopt_params['lstminnerinit']),
+                'lstm_act': hp.choice('lstm_act', hyperopt_params['lstmact']),
+                'lstm_inner_act': hp.choice('lstm_inner_act', hyperopt_params['lstminneract']),
+                'lstm_wdropout': hp.choice('lstm_wdropout', hyperopt_params['lstmwdropout']),
+                'lstm_udropout': hp.choice('lstm_udropout', hyperopt_params['lstmudropout']),
+            }
+        get_space_func = get_lstm_space
+    elif model_name == 'gru':
+        train_func = train_gru
+
+        def get_gru_space():
+            return {
+                'gru_dim': hp.choice('gru_dim', hyperopt_params['grudim']),
+                'gru_init': hp.choice('gru_init', hyperopt_params['gruinit']),
+                'gru_inner_init': hp.choice('gru_inner_init', hyperopt_params['gruinnerinit']),
+                'gru_act': hp.choice('gru_act', hyperopt_params['gruact']),
+                'gru_inner_act': hp.choice('gru_inner_act', hyperopt_params['gruinneract']),
+                'gru_wdropout': hp.choice('gru_wdropout', hyperopt_params['gruwdropout']),
+                'gru_udropout': hp.choice('gru_udropout', hyperopt_params['gruudropout']),
+            }
+        get_space_func = get_gru_space
+    elif model_name == 'cnn':
+        train_func = train_cnn
+
+        def get_cnn_space():
+            return {
+                'cnn_nbfilter': [
+                    hp.choice('uni_nbfilter', hyperopt_params['nbfilter']),
+                    hp.choice('bi_nbfilter', hyperopt_params['nbfilter']),
+                    hp.choice('tri_nbfilter', hyperopt_params['nbfilter']),
+                ],
+                'cnn_init': hp.choice('cnn_init', hyperopt_params['cnninit']),
+                'cnn_act': hp.choice('cnn_act', hyperopt_params['cnnact']),
+                'cnn_border': hp.choice('cnn_border', hyperopt_params['cnnborder']),
+            }
+        get_space_func = get_cnn_space
+    else:
+        raise ValueError('Do not support {} model'.format(model_name))
+
     if hyperopt_params is None:
-        best_model, best_loss, best_acc = train_bow(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size,
-                                                    on_memory, early_stopping, **model_params)
+        best_model, best_loss, best_acc = train_func(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size,
+                                                     on_memory, early_stopping, **model_params)
         best_params = model_params
         logs = [best_params.values() + [best_loss, best_acc]]
     else:
         def keras_fmin_fnct(space):
-            """
-            :param space:
-            :return:
-            """
 
             if not hasattr(keras_fmin_fnct, "counter"):
                 keras_fmin_fnct.counter = 0
             keras_fmin_fnct.counter += 1
 
-            model, loss, acc = train_bow(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size, on_memory,
+            model, loss, acc = train_func(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size, on_memory,
                                          early_stopping, **space)
 
             logger.info('Searching hyperparameter {} done: loss={}, acc={}'.format(keras_fmin_fnct.counter, loss, acc))
@@ -195,12 +287,13 @@ def train(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1, on_
             return {'loss': -acc, 'status': STATUS_OK, 'model': model, 'model_loss': loss, 'model_acc': acc}
 
         def get_space():
-            return {
-                'wemb_dim': hp.choice('wemb_dim', hyperopt_params['wembdim']),
-                'wemb_init': hp.choice('wemb_init', hyperopt_params['wembinit']),
-                'wemb_dropout': hp.choice('wemb_dropout', hyperopt_params['wembdropout']),
-                'optimizer': hp.choice('optimizer', hyperopt_params['optimizer']),
-            }
+            wemb_dict = {'wemb_dim': hp.choice('wemb_dim', hyperopt_params['wembdim']),
+                         'wemb_init': hp.choice('wemb_init', hyperopt_params['wembinit']),
+                         'wemb_dropout': hp.choice('wemb_dropout', hyperopt_params['wembdropout']),
+                         'optimizer': hp.choice('optimizer', hyperopt_params['optimizer']),}
+            model_dict = get_space_func()
+
+            return dict(wemb_dict, **model_dict)
 
         trials = Trials()
         best_params = fmin(keras_fmin_fnct, space=get_space(), algo=tpe.suggest,
@@ -454,8 +547,7 @@ def train_mode(args):
 
     logger.info('%s samples, %s labels, %s words', x.shape[0], y.shape[1], x.shape[1])
     check_train_data(x, y)
-    #logger.info('Start training: %s', args.model)
-    logger.info('Start training:')
+    logger.info('Start training: %s', args.model)
     training_start = datetime.now()
     model_params = dict([]) if args.model_params is None else json.loads(args.model_params)
     if args.hyperopt_params is None:
@@ -463,10 +555,10 @@ def train_mode(args):
     else:
         logger.info('Hyperopt + Keras: Search mode')
 
-    model, loss, acc = train(x, y, validation_data=val_data, vocab_size=x_vocab.size(), nb_ans=y_vocab.size(),
-                             num_iter=args.num_iter, batch_size=args.batch_size, on_memory=(args.on == 'memory'),
-                             early_stopping=args.early_stopping, hyperopt_params=json.loads(args.hyperopt_params),
-                             **model_params)
+    model, loss, acc = train(x, y, model_name=args.model, validation_data=val_data, vocab_size=x_vocab.size(),
+                             nb_ans=y_vocab.size(), num_iter=args.num_iter, batch_size=args.batch_size,
+                             on_memory=(args.on == 'memory'), early_stopping=args.early_stopping,
+                             hyperopt_params=json.loads(args.hyperopt_params), **model_params)
     logger.info('Training time: {}'.format(datetime.now() - training_start))
     logger.info('Loss={}, acc={}'.format(loss, acc))
 
@@ -545,6 +637,8 @@ if __name__ == '__main__':
     argparser.add_argument('-f', '--model_dir', type=str, dest='model_dir', help='directory to store the model')
     argparser.add_argument('-o', '--output_file', type=str, dest='output_file', default=None,
                            help='file to output detection results')
+    argparser.add_argument('-m', '--model', type=str, dest='model', default='bow', choices=['bow', 'lstm', 'gru', 'cnn'],
+                           help='model of classifier')
     argparser.add_argument('-i', '--num_iter', type=int, dest='num_iter', default=10,
                            help='number of epochs for training')
     argparser.add_argument('-n', '--num_samples', type=int, dest='num_samples', default=0,

@@ -4,7 +4,6 @@
     <list default="true" id="e4b67a79-62d6-4f5f-a551-23b3aad6ffeb" name="Default" comment="">
       <change type="MOVED" beforePath="$PROJECT_DIR$/bow.py" afterPath="$PROJECT_DIR$/question-based-model.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evalaccuracy.py" afterPath="$PROJECT_DIR$/evalaccuracy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/question-exp.py" afterPath="$PROJECT_DIR$/question-exp.py" />
     </list>
     <ignored path="imageqa.iws" />
@@ -26,24 +25,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="question-based-model.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="question-based-model.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/question-based-model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2900">
-              <caret line="147" column="50" selection-start-line="147" selection-start-column="50" selection-end-line="147" selection-end-column="50" />
+            <state relative-caret-position="140">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
                 <element signature="e#61#98#0" expanded="true" />
-                <element signature="e#12504#12848#0" expanded="false" />
-                <element signature="e#12907#14422#0" expanded="false" />
-                <element signature="e#14425#14468#0" expanded="false" />
-                <element signature="e#15237#15609#0" expanded="false" />
-                <element signature="e#15609#15638#0" expanded="false" />
-                <element signature="e#16369#16834#0" expanded="false" />
-                <element signature="e#16961#17293#0" expanded="false" />
-                <element signature="e#17431#17719#0" expanded="false" />
-                <element signature="e#17769#18510#0" expanded="false" />
-                <element signature="e#18562#18909#0" expanded="false" />
-                <element signature="e#18957#19030#0" expanded="false" />
+                <element signature="e#14981#15325#0" expanded="false" />
+                <element signature="e#16902#16945#0" expanded="false" />
+                <element signature="e#18086#18115#0" expanded="false" />
+                <element signature="e#18846#19311#0" expanded="false" />
+                <element signature="e#19438#19770#0" expanded="false" />
+                <element signature="e#19908#20196#0" expanded="false" />
+                <element signature="e#20246#20987#0" expanded="false" />
+                <element signature="e#21039#21386#0" expanded="false" />
+                <element signature="e#21434#21507#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="question-exp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/question-exp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+              <folding>
+                <element signature="e#71#126#0" expanded="true" />
+                <element signature="e#4815#4929#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -59,69 +69,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gru-1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gru-1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lstm-1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lstm-1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="56" column="55" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lstm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="question-exp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/question-exp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="183" column="49" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="49" />
-              <folding>
-                <element signature="e#71#126#0" expanded="true" />
-                <element signature="e#3457#3571#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="evalaccuracy.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="evalaccuracy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evalaccuracy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
+            <state relative-caret-position="-540">
               <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="runexp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/runexp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
-              <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
-              <folding>
-                <element signature="e#4151#4206#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -193,10 +146,10 @@
         <option value="$PROJECT_DIR$/quest2num.py" />
         <option value="$PROJECT_DIR$/ans2num.py" />
         <option value="$PROJECT_DIR$/bow.py" />
-        <option value="$PROJECT_DIR$/question-exp.py" />
         <option value="$PROJECT_DIR$/test-misc.py" />
-        <option value="$PROJECT_DIR$/question-based-model.py" />
         <option value="$PROJECT_DIR$/evalaccuracy.py" />
+        <option value="$PROJECT_DIR$/question-exp.py" />
+        <option value="$PROJECT_DIR$/question-based-model.py" />
       </list>
     </option>
   </component>
@@ -507,13 +460,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463975695598</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Fix bugs: cnn-bow-hyperas.py">
-      <created>1464319946778</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1464319946778</updated>
     </task>
     <task id="LOCAL-00035" summary="Fix bugs: cnn-bow-hyperas.py">
       <created>1464324565350</created>
@@ -851,7 +797,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467107325333</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Rewriting">
+      <created>1467163793424</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1467163793426</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TodoView">
@@ -872,18 +825,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32795697" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3271605" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15040953" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2962963" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3271605" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1152,13 +1105,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn-bow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/depnet_vggmyconceptsv3fc8-bow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -1256,53 +1202,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/question-based-model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2900">
-          <caret line="147" column="50" selection-start-line="147" selection-start-column="50" selection-end-line="147" selection-end-column="50" />
-          <folding>
-            <element signature="e#61#98#0" expanded="true" />
-            <element signature="e#12504#12848#0" expanded="false" />
-            <element signature="e#12907#14422#0" expanded="false" />
-            <element signature="e#14425#14468#0" expanded="false" />
-            <element signature="e#15237#15609#0" expanded="false" />
-            <element signature="e#15609#15638#0" expanded="false" />
-            <element signature="e#16369#16834#0" expanded="false" />
-            <element signature="e#16961#17293#0" expanded="false" />
-            <element signature="e#17431#17719#0" expanded="false" />
-            <element signature="e#17769#18510#0" expanded="false" />
-            <element signature="e#18562#18909#0" expanded="false" />
-            <element signature="e#18957#19030#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/question-exp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="183" column="49" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="49" />
-          <folding>
-            <element signature="e#71#126#0" expanded="true" />
-            <element signature="e#3457#3571#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lstm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
           <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="43" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/evalaccuracy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="-540">
           <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnn-bow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1054">
+          <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/question-exp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+          <folding>
+            <element signature="e#71#126#0" expanded="true" />
+            <element signature="e#4815#4929#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/question-based-model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#61#98#0" expanded="true" />
+            <element signature="e#14981#15325#0" expanded="false" />
+            <element signature="e#16902#16945#0" expanded="false" />
+            <element signature="e#18086#18115#0" expanded="false" />
+            <element signature="e#18846#19311#0" expanded="false" />
+            <element signature="e#19438#19770#0" expanded="false" />
+            <element signature="e#19908#20196#0" expanded="false" />
+            <element signature="e#20246#20987#0" expanded="false" />
+            <element signature="e#21039#21386#0" expanded="false" />
+            <element signature="e#21434#21507#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

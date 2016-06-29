@@ -55,15 +55,63 @@ dataset_specs = {
 
 train_methods = {
     "bow": {
-        "model": "mlp",
+        "model": "bow",
         "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
             {'wembdim': [100, 200, 300, 500],
              'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
              'wembdropout': [0.0, 0.1, 0.3, 0.5],
              'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
-             'maxevals': 15})),
+             'maxevals': 10})),
         "test_args": "--batch_size 100"
     },
+    "lstm": {
+        "model": "lstm",
+        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+            {'wembdim': [100, 200, 300, 500],
+             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'wembdropout': [0.0, 0.1, 0.3, 0.5],
+             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+             'lstmdim': [200, 300, 400, 500, 1000],
+             'lstminit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'lstminner_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'lstmact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+             'lstminner_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+             'lstmwdropout': [0.0, 0.1, 0.3, 0.5],
+             'lstmudropout': [0.0, 0.1, 0.3, 0.5],
+             'maxevals': 10})),
+        "test_args": "--batch_size 100"
+    },
+    "gru": {
+        "model": "gru",
+        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+            {'wembdim': [100, 200, 300, 500],
+             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'wembdropout': [0.0, 0.1, 0.3, 0.5],
+             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+             'grudim': [200, 300, 400, 500, 1000],
+             'gruinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'gruinner_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'gruact': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+             'gruinner_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+             'gruwdropout': [0.0, 0.1, 0.3, 0.5],
+             'gruudropout': [0.0, 0.1, 0.3, 0.5],
+             'maxevals': 10})),
+        "test_args": "--batch_size 100"
+    },
+    "cnn": {
+        "model": "cnn",
+        "train_args": "-i 1000 --batch_size 100 --early_stopping 10 --hyperopt_params '{}'".format(json.dumps(
+            {'wembdim': [100, 200, 300, 500],
+             'wembinit': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'wembdropout': [0.0, 0.1, 0.3, 0.5],
+             'optimizer': ['adam', 'rmsprop', 'adagrad', 'adadelta', 'adamax'],
+             'nbfilter': [100, 200, 300],
+             'cnn_init': ['uniform', 'normal', 'glorot_uniform', 'glorot_normal', 'he_normal', 'he_uniform'],
+             'cnn_act': ['relu', 'tanh', 'sigmoid', 'hard_sigmoid', 'linear'],
+             'cnn_border': ['valid', 'same'],
+             'maxevals': 15})),
+        "test_args": "--batch_size 100"
+    }
 }
 
 
@@ -157,15 +205,15 @@ def train_and_eval(task):
                 task(name='train {}: {}_{}'.format(train_method, dataset, max_len),
                      source=[train_x, train_y, val_x, val_y],
                      target=model_file,
-                     rule='python bow.py train -x {} -y {} -f {} --val_x {} --val_y {} {}'.format(
-                         train_x, train_y, model_file, val_x, val_y, train_params))
+                     rule='python question-based-model.py train -m {} -x {} -y {} -f {} --val_x {} --val_y {} {}'.format(
+                         train_method, train_x, train_y, model_file, val_x, val_y, train_params))
 
                 # predict on test data
                 test_params = train_methods[train_method]['test_args']
                 task(name='predict {}: {}_maxlen{}'.format(train_method, dataset, max_len),
                      source=[test_x, test_y, model_file],
                      target=test_pred,
-                     rule='python bow.py test -x {} -y {} -f {} -o {} {}'.format(test_x, test_y, model_file, test_pred,
+                     rule='python question-based-model.py test -x {} -y {} -f {} -o {} {}'.format(test_x, test_y, model_file, test_pred,
                                                                                  test_params))
                 # evaluate on test data
                 task(name='evaluate {}: {}_maxlen{}'.format(train_method, dataset, max_len),
