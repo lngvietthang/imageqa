@@ -111,7 +111,7 @@ train_methods = {
              'cnnborder': ['valid', 'same'],
              'maxevals': 15})),
         "test_args": "--batch_size 100"
-    }
+    },
 }
 
 
