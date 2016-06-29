@@ -156,7 +156,7 @@ def train_cnn(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1,
               cnn_nbfilter=[300, 200, 100], cnn_init='orthogonal', cnn_act='relu', cnn_border='valid',
               optimizer='adamax'):
 
-    input_x = Input(shape=(x.shape[1],))
+    input_x = Input(shape=(x.shape[1],), dtype="int32")
 
     wordembediing = Embedding(input_dim=vocab_size, output_dim=wemb_dim,
                               init=wemb_init, mask_zero=False, dropout=wemb_dropout)(input_x)
