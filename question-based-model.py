@@ -179,10 +179,10 @@ def train_cnn(x, y, validation_data, vocab_size, nb_ans, num_iter, batch_size=1,
     maxpooling_trigram_cnn = Lambda(function=lambda x: K.max(x, axis=1),
                                     output_shape=lambda shape: (shape[0],) + shape[2:])(trigram_cnn)
 
-    merge_3cnn = merge([maxpooling_unigram_cnn, maxpooling_bigram_cnn, maxpooling_trigram_cnn],
+    merge_three_cnn = merge([maxpooling_unigram_cnn, maxpooling_bigram_cnn, maxpooling_trigram_cnn],
                        mode='concat', concat_axis=1)
 
-    predictions = Dense(nb_ans, activation='softmax')(merge_3cnn)
+    predictions = Dense(nb_ans, activation='softmax')(merge_three_cnn)
 
     model = Model(input=input_x, output=predictions)
 
